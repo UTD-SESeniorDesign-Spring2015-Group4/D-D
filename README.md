@@ -23,4 +23,4 @@ If you need to add an npm package, run `npm install --save [package-name]`. Incl
 
 ### Building Binaries
 
-To compile the project into a distributable binary, run `grunt build`. This will create binaries for Windows and OSX, in both 32 and 64 bit by default.
+To compile the project into a distributable binary, run `grunt build`. This will create binaries for Windows and OSX, in both 32 and 64 bit by default. If you really want Linux binaries, run `grunt build-linux`.

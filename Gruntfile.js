@@ -3,14 +3,27 @@ module.exports = function(grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     nodewebkit: {
-      options: {
-        build_dir: 'dist',
-        linux32: false,
-        linux64: false,
-        mac: true,
-        win: true
+      default: {
+        options: {
+          build_dir: 'dist',
+          linux32: false,
+          linux64: false,
+          mac: true,
+          win: true
+        },
+        src: 'app/**'  
       },
-      src: 'app/**'
+      linux: {
+        options: {
+          build_dir: 'dist',
+          linux32: true,
+          linux64: true,
+          mac: false,
+          win: false
+        },
+        src: 'app/**'
+      }
+      
     },
     exec: {
       runNW: {
@@ -25,7 +38,8 @@ module.exports = function(grunt) {
       }
     },
   });
-  grunt.registerTask('build', ['nodewebkit']);
+  grunt.registerTask('build', ['nodewebkit:default']);
+  grunt.registerTask('build-linux', ['nodewebkit:linux']);
   grunt.registerTask('run', ['exec:runNW']);
   return grunt.registerTask('default', ['run']);
 };
