@@ -1,0 +1,12 @@
+{
+  "name": "SeniorProject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "window": {
+  	"title": "Senior Project",
+  	"toolbar": true
+  },
+  "author": "",
+  "license": "MIT"
+}
