@@ -22,7 +22,17 @@ module.exports = function(grunt) {
           win: false
         },
         src: 'app/**'
-      }
+      },
+    windows: {
+      options: {
+        build_dir: 'dist',
+        linux32: false,
+        linux64: false,
+        mac: false,
+        win: true
+      },
+      src: 'app/**'
+    }
       
     },
     exec: {
@@ -36,10 +46,14 @@ module.exports = function(grunt) {
           }
         }
       }
+      nsis: {
+        cmd: "\"C:\Program Files (x86)\NSIS\makensis.exe install-config.nsi"
+      }
     },
   });
   grunt.registerTask('build', ['nodewebkit:default']);
   grunt.registerTask('build-linux', ['nodewebkit:linux']);
+  grunt.registerTask('build-installer', ['build:windows', 'exec:nsis']);
   grunt.registerTask('run', ['exec:runNW']);
   return grunt.registerTask('default', ['run']);
 };

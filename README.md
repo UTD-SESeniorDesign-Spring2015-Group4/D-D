@@ -24,3 +24,7 @@ If you need to add an npm package, run `npm install --save [package-name]`. Incl
 ### Building Binaries
 
 To compile the project into a distributable binary, run `grunt build`. This will create binaries for Windows and OSX, in both 32 and 64 bit by default. If you really want Linux binaries, run `grunt build-linux`.
+
+### Building an Installer
+
+Currently we only support building a Windows 32-bit installer. Building this installer will require that you install [NSIS 2.46](http://nsis.sourceforge.net/Download), and that it is installed in `C:\Program Files (x86)\NSIS`. To build the installer, run `grunt build-installer`.
