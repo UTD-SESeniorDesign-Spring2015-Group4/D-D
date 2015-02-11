@@ -45,7 +45,7 @@ module.exports = function(grunt) {
             return 'nodewebkit ../../../app &';
           }
         }
-      }
+      },
       nsis: {
         cmd: "\"C:\Program Files (x86)\NSIS\makensis.exe install-config.nsi"
       }
