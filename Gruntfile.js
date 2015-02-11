@@ -47,7 +47,7 @@ module.exports = function(grunt) {
         }
       },
       nsis: {
-        cmd: "\"C:\Program Files (x86)\NSIS\makensis.exe install-config.nsi"
+        cmd: "\"C:\\Program Files (x86)\\NSIS\\makensis.exe\" install-config.nsi"
       }
     },
   });
