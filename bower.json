@@ -14,6 +14,7 @@
     "jquery": "~2.1.3",
     "backbone": "~1.1.2",
     "lodash": "~3.1.0",
-    "joint": "~0.9.3"
+    "joint": "~0.9.3",
+    "normalize.css": "~3.0.2"
   }
 }
