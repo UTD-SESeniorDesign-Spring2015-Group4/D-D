@@ -1,0 +1,65 @@
+
+/*Fonts*/
+@font-face {
+    font-family: texgyreheros-regular;
+    src: url(fonts/texgyreheros-regular.otf);
+}
+
+@font-face {
+    font-family: texgyreheros-bold;
+    src: url(fonts/texgyreheros-bold.otf);
+}
+
+/*body*/
+html, body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+/*Sidebar*/
+.sidebar {
+    display: block;
+
+    width: 100px;
+    height: 100%;
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    overflow: scroll;
+    background-color: #000000;
+    text-align: center;
+}
+
+.sidebar::-webkit-scrollbar {
+    display: none;
+}
+
+.sidebar ul {
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar li {
+    list-style: none;
+}
+
+.sidebar li img {
+    margin: 15px 30px 15px 30px;
+}
+
+.sidebar h3 {
+    margin: 0;
+    padding-top: 10px;
+
+    font-family: texgyreheros-bold, sans-serif;
+    color: #C3C3C3;
+}
+
+/*Canvas*/
+#canvas {
+    display: inline-block;
+    height: 100%;
+    flex-grow: 1;
+}

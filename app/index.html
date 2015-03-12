@@ -3,6 +3,8 @@
 	<head>
 		<title>D&D</title>
 		<link rel="stylesheet" href="vendor/joint/dist/joint.nojquerynobackbone.css">
+        <link rel="stylesheet" href="vendor/normalize.css/normalize.css">
+        <link rel="stylesheet" href="css/app.css"/>
 		<script src="vendor/jquery/dist/jquery.js"></script>
 		<script src="vendor/lodash/lodash.js"></script>
 		<script src="vendor/backbone/backbone.js"></script>
@@ -10,8 +12,36 @@
 
 		<script src="js/config.js"></script>
 		<script src="js/winstate.js"></script>
+		<script src="js/app.js"></script>
 	</head>
 	<body ondragstart="return false;" ondrop="return false;">
-		<h1>TODO: Senior Project</h1>
+        <!--Sidebar-->
+        <div class="sidebar">
+            <div class="toolbox">
+                <h3>TOOLS</h3>
+                <ul>
+                    <li class="select-tool"><img src="img/mouse_tool.svg"/></li>
+                    <li class="link-tool"><img src="img/link-tool.svg"/></li>
+                </ul>
+            </div>
+            <hr/>
+            <div class="palette">
+                <h3>PALETTE</h3>
+                <ul>
+                    <li class="client-item"><img src="img/client_palette.svg"/></li>
+                    <li class="wan-item"><img src="img/wan_palette.svg"/></li>
+                    <li class="loadballancer-item"><img src="img/loadballancer_palette.svg"/></li>
+                    <li class="webfrontendserver-item"><img src="img/webfrontentserver_palette.svg"/></li>
+                    <li class="middlewareserver-item"><img src="img/middlewareserver_palette.svg"/></li>
+                    <li class="applicationserver-item"><img src="img/applicationserver_palette.svg"/></li>
+                    <li class="databaseserver-item"><img src="img/databaseserver_palette.svg"/></li>
+                </ul>
+            </div>
+        </div>
+
+        <!--Canvas-->
+        <div id="canvas">
+
+        </div>
 	</body>
 </html>
