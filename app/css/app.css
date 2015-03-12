@@ -14,16 +14,26 @@
 html, body {
     width: 100%;
     height: 100%;
+    display: flex;
+    flex-direction: row;
 }
 
 /*Sidebar*/
 .sidebar {
+    display: block;
+
     width: 100px;
     height: 100%;
+    flex-grow: 0;
+    flex-shrink: 0;
 
     overflow: scroll;
     background-color: #000000;
     text-align: center;
+}
+
+.sidebar::-webkit-scrollbar {
+    display: none;
 }
 
 .sidebar ul {
@@ -41,7 +51,15 @@ html, body {
 
 .sidebar h3 {
     margin: 0;
+    padding-top: 10px;
 
     font-family: texgyreheros-bold, sans-serif;
     color: #C3C3C3;
+}
+
+/*Canvas*/
+#canvas {
+    display: inline-block;
+    height: 100%;
+    flex-grow: 1;
 }
