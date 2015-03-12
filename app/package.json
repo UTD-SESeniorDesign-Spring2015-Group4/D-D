@@ -1,11 +1,17 @@
 {
-  "name": "SeniorProject",
+  "name": "D&D",
   "version": "1.0.0",
   "description": "",
   "main": "index.html",
   "window": {
-  	"title": "Senior Project",
-  	"toolbar": true
+  	"title": "D&D",
+  	"toolbar": false,
+    "show": false,
+    "width": 800,
+    "height": 600,
+    "min_width": 300,
+    "min_height": 300
+
   },
   "author": "",
   "license": "MIT"
