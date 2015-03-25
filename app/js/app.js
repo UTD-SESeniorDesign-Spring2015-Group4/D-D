@@ -27,6 +27,11 @@
       model: graph
     });
 
+    $(window).resize(function(){
+      var $window = $(window);
+      paper.setDimensions($window.width(), $window.height());
+    });
+
     for (var i = 0; i < 50; i++) {
       var rect = new joint.shapes.basic.Rect({
         position: { x: 50 + i * 10, y: 70 + i * 10 },
