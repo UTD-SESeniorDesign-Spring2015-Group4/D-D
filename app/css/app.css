@@ -24,7 +24,7 @@ html, body {
 .sidebar {
     display: block;
 
-    width: 100px;
+    width: 50px;
     height: 100%;
     flex-grow: 0;
     flex-shrink: 0;
@@ -48,15 +48,23 @@ html, body {
 }
 
 .sidebar li img {
-    margin: 15px 30px 15px 30px;
+    margin-top: 10px;
+    width: 50%;
 }
 
 .sidebar h3 {
     margin: 0;
     padding-top: 10px;
-
+    font-size: .6em;
     font-family: texgyreheros-bold, sans-serif;
     color: #C3C3C3;
+}
+
+.sidebar hr {
+    border: 0;
+    height: 1px;
+    margin: 5px;
+    background-color: #C3C3C3;
 }
 
 /*Canvas*/
@@ -64,4 +72,5 @@ html, body {
     display: inline-block;
     height: 100%;
     flex-grow: 1;
+    background-color: #EEEEEE;
 }
