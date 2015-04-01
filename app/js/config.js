@@ -10,6 +10,7 @@ if(process.platform === 'darwin')
   menu.append(new gui.MenuItem({label: 'D&D'}));
 
 
+
 // File menu
 var fileMenu = new gui.MenuItem({
   label: 'File',
@@ -80,3 +81,9 @@ document.addEventListener('keydown', function(e){
 // Disable brower opening files when dragging onto the window
 window.ondragover = function(e) { e.preventDefault(); return false };
 window.ondrop = function(e) { e.preventDefault(); return false };
+
+// Catch uncaught exceptions so they don't crash the entire program
+// TODO: add indicator that program crashed?
+process.on('uncaughtException', function(e) {
+    console.error(e);
+});
