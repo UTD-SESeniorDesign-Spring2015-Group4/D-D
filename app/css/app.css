@@ -21,7 +21,7 @@ html, body {
 }
 
 /*Sidebar*/
-.sidebar {
+#sidebar {
     display: block;
 
     width: 50px;
@@ -34,25 +34,25 @@ html, body {
     text-align: center;
 }
 
-.sidebar::-webkit-scrollbar {
+#sidebar::-webkit-scrollbar {
     display: none;
 }
 
-.sidebar ul {
+#sidebar ul {
     margin: 0;
     padding: 0;
 }
 
-.sidebar li {
+#sidebar li {
     list-style: none;
 }
 
-.sidebar li img {
+#sidebar li img {
     margin-top: 10px;
     width: 50%;
 }
 
-.sidebar h3 {
+#sidebar h3 {
     margin: 0;
     padding-top: 10px;
     font-size: .6em;
@@ -60,11 +60,19 @@ html, body {
     color: #C3C3C3;
 }
 
-.sidebar hr {
+#sidebar hr {
     border: 0;
     height: 1px;
     margin: 5px;
     background-color: #C3C3C3;
+}
+
+.toolbox li img:hover {
+    cursor: pointer;
+}
+
+.palette li:hover {
+    cursor: move;
 }
 
 /*Canvas*/
