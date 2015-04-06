@@ -1,4 +1,12 @@
-(function () {
+define([
+  'components/ApplicationServer',
+  'components/Client',
+  'components/DatabaseServer',
+  'components/Loadbalancer',
+  'components/MiddlewareServer',
+  'components/Wan',
+  'components/WebfrontendServer'
+], function (ApplicationServer, Client, DatabaseServer, Loadbalancer, MiddlewareServer, Wan, WebfrontendServer) {
   "use strict";
 
   var $sidebar;
@@ -115,4 +123,4 @@
       Console.log("You have dragged a component of unknown type onto the canvas.");
     }
   }
-})(jQuery);
+});
