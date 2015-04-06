@@ -59,13 +59,20 @@ define([
 
   function dropOnPaper(event) {
     var component;
-
     var type = componentDragged.data('component');
+
+    // Get the offset of the canvas from the window.
     var offset = $canvas.offset();
+
+    // Edit the offset to center the drop point with the icon being dragged.
+    offset.left += (componentDragged.width() / 2);
+    offset.top -= (componentDragged.height() / 2);
+
     var position = {
       x: event.originalEvent.clientX - offset.left,
-      y: event.originalEvent.clientY - offset.top
+      y: event.originalEvent.clientY + offset.top
     };
+
     var size = {
       width: componentDragged.width(),
       height: componentDragged.height()
