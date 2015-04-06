@@ -26,8 +26,8 @@
  * - Don't call window.show() if dev tools are already open (see initWindowState).
  */
 
-var gui = require('nw.gui');
-var win = gui.Window.get();
+var gui = nwgui;
+var win = nwWindow;
 var winState;
 var currWinMode;
 var resizeTimeout;
