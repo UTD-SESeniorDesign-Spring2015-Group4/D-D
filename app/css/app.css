@@ -2,12 +2,12 @@
 /*Fonts*/
 @font-face {
     font-family: texgyreheros-regular;
-    src: url(fonts/texgyreheros-regular.otf);
+    src: url(../fonts/texgyreheros-regular.otf);
 }
 
 @font-face {
     font-family: texgyreheros-bold;
-    src: url(fonts/texgyreheros-bold.otf);
+    src: url(../fonts/texgyreheros-bold.otf);
 }
 
 /*body*/
