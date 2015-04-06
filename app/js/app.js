@@ -15,8 +15,6 @@ define([
   var graph;
   var paper;
 
-  var paperXOffset;
-
   // The component that is currently being dragged.
   var componentDragged;
 
@@ -37,12 +35,11 @@ define([
     graph = new joint.dia.Graph;
     paper = new joint.dia.Paper({
       el: $canvas,
-      width: $canvas.width(),
-      height: $canvas.height(),
+      width: "100%",
+      height: "100%",
       gridSize: 10,
       model: graph
     });
-    paperXOffset = $sidebar.width();
 
     $(window).resize(function(){
       var $window = $(window);
@@ -64,9 +61,10 @@ define([
     var component;
 
     var type = componentDragged.data('component');
+    var offset = $canvas.offset();
     var position = {
-      x: event.originalEvent.clientX - paperXOffset,
-      y: event.originalEvent.clientY
+      x: event.originalEvent.clientX - offset.left,
+      y: event.originalEvent.clientY - offset.top
     };
     var size = {
       width: componentDragged.width(),

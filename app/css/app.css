@@ -83,3 +83,8 @@ html, body {
     flex-grow: 1;
     background-color: #EEEEEE;
 }
+
+.paper {
+    width: 100%;
+    height: 100%;
+}
