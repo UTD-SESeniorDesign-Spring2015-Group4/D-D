@@ -17,6 +17,7 @@
     "joint": "~0.9.3",
     "normalize.css": "~3.0.2",
     "vectorizer": "*",
-    "underscore": "~1.8.3"
+    "underscore": "~1.8.3",
+    "requirejs": "~2.1.17"
   }
 }
