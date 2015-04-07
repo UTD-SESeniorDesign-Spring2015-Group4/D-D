@@ -19,4 +19,6 @@ requirejs([
     window.ondrop = function(e) { e.preventDefault(); return false };
 
     toastr.options.closeButton = true;
+}, function(err) {
+    alert('RequireJS failed to find the required dependencies. If developing, run "npm install" or "bower install" to make sure dependencies are installed.\n' + err);
 });
