@@ -4,11 +4,14 @@
 		<title>D&D</title>
 		<link rel="stylesheet" href="vendor/joint/dist/joint.nojquerynobackbone.css">
         <link rel="stylesheet" href="vendor/normalize.css/normalize.css">
+        <link rel="stylesheet" href="vendor/toastr/toastr.css">
         <link rel="stylesheet" href="css/app.css"/>
 		<script src="vendor/jquery/dist/jquery.js"></script>
 		<script src="vendor/lodash/lodash.js"></script>
 		<script src="vendor/backbone/backbone.js"></script>
 		<script src="vendor/joint/dist/joint.nojquerynobackbone.js"></script>
+		<script src="vendor/PicoModal/src/picoModal.js"></script>
+		<script src="vendor/toastr/toastr.js"></script>
 
 	</head>
 	<body>
@@ -40,6 +43,10 @@
         <div id="canvas" ondragover="event.preventDefault()">
 
         </div>
+
+        <input id="openFileDialog" type="file" style="display:none" accept=".dgrm"/>
+        <input id="saveFileDialog" type="file" style="display:none" accept=".dgrm" nwsaveas/>
+        <input id="exportFileDialog" type="file" style="display:none" accept=".manf" nwsaveas/>
 		<script src="js/init.js"></script>
 	</body>
 </html>

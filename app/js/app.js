@@ -45,6 +45,13 @@ define([
       var $window = $(window);
       paper.setDimensions($window.width(), $window.height());
     });
+
+    window.graph = graph;
+    graph.on('change add remove', function(e){
+      graph.set('unsavedChanges', true, {silent: true});
+      if(!_.endsWith(document.title, '*'))
+        document.title += '*';
+    }, graph);
   }
 
   function setUpDragAndDrop() {

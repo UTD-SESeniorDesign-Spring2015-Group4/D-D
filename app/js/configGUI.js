@@ -1,84 +1,255 @@
 define([
-
-], function(){
+    './DiagramIO',
+    'text!../tmpl/dialog.html'
+], function(DiagramIO, tmplDialog){
     // Load native UI library
     var gui = window.nwgui;
+    var isMac = process.platform === 'darwin';
+    var dialogTemplate = _.template(tmplDialog);
+    var dialogPromise;
 
-    // Setup menu
-    // Create an empty menu
-    var menu = new gui.Menu({type: 'menubar'});
+    setupMenu()
+    setupFileDialogs();
+    setupKeyboardShortcuts();
+    setupWindow();
 
-    // Empty app menu when running mac
-    if(process.platform === 'darwin')
-      menu.append(new gui.MenuItem({label: 'D&D'}));
+    function setDiagramPath(path) {
+        window.graph.set('path', path, {silent: true});
+        window.graph.set('unsavedChanges', false, {silent: true});
+        document.title = 'D&D' + (path ? ' - ' + path : '');
+    }
 
-    // File menu
-    var fileMenu = new gui.MenuItem({
-      label: 'File',
-      submenu: new gui.Menu()
-    });
+    function newDiagram() {
+        confirmCloseDiagram('Save before creating new empty diagram?', function(){
+            window.graph.clear();
+            setDiagramPath(undefined)
+            toastr.success('Created new empty diagram', 'New Diagram');
+        });
+    }
 
-    fileMenu.submenu.append(new gui.MenuItem({
-      label: 'New',
-      key: 'n',
-      modifier: 'mod'
-    }));
+    function openDiagram() {
+        confirmCloseDiagram('Save before opening another diagram?', showOpenFileDialog)
+    }
 
-    fileMenu.submenu.append(new gui.MenuItem({
-      type: 'separator'
-    }));
+    function quit() {
+        nwWindow.close();
+    }
 
-    fileMenu.submenu.append(new gui.MenuItem({
-      label: 'Open',
-      key: 'o',
-      modifier: 'mod'
-    }));
+    function saveDiagram(cb) {
+        var path = window.graph.get('path');
+        if(path) {
+            DiagramIO.write(path, function(err){
+                if(!err) {
+                    toastr.success('Saved diagram to '+path, 'Sucessfully Saved');
+                    setDiagramPath(path)
+                    cb()
+                }
+                else
+                    toastr.error(err, 'Error')
+            });
+        }
+        else
+            showSaveFileDialog().then(cb);
+    }
 
-    fileMenu.submenu.append(new gui.MenuItem({
-      label: 'Save',
-      key: 's',
-      modifier: 'mod'
-    }));
+    function saveDiagramAs() {
+        showSaveFileDialog();
+    }
 
-    fileMenu.submenu.append(new gui.MenuItem({
-      label: 'Save As',
-      key: 's',
-      modifier: 'mod+shift'
-    }));
+    function exportDiagram() {
+        toastr.warning('Not yet implemented');
+    }
 
-    fileMenu.submenu.append(new gui.MenuItem({
-      label: 'Export'
-    }));
+    function showFileDialog(selector) {
+        var $dialog = $(selector);
+        // Clear the value so opening the same file triggers a change
+        $dialog.val('');
+        // Click on file input so file dialog opens
+        $dialog.click();
 
-    fileMenu.submenu.append(new gui.MenuItem({
-      type: 'separator'
-    }));
+        dialogPromise = $.Deferred();
+        return dialogPromise;
+    }
 
-    fileMenu.submenu.append(new gui.MenuItem({
-      label: 'Quit',
-      key: 'q',
-      modifier: 'mod',
-      click: function() {
-        gui.App.closeAllWindows();
-      }
-    }));
+    // Corresponding showFileDialog for open/save/export
+    var showOpenFileDialog = _.partial(showFileDialog, '#openFileDialog');
+    var showSaveFileDialog = _.partial(showFileDialog, '#saveFileDialog');
+    var showExportFileDialog = _.partial(showFileDialog, '#exportFileDialog');
 
-    menu.append(fileMenu);
+    function confirmCloseDiagram(text, func) {
+        if(window.graph.get('unsavedChanges'))
+        {
+            picoModal({
+                content: dialogTemplate({
+                    title: 'Save Changes?',
+                    text: 'This diagram has unsaved changes. ' + text,
+                    buttons: {
+                        btnSave: 'Save',
+                        btnDontSave: 'Don\'t Save',
+                        btnCancel: 'Cancel'
+                    }
+                }),
+                closeButton: false,
+                overlayClose: false
+            }).afterCreate(function(modal){
+                var $modal = $(modal.modalElem())
+                $modal.find('#btnSave').click(function() {
+                    modal.destroy();
+                    saveDiagram(func);
+                });
+                $modal.find('#btnDontSave').click(function() {
+                    modal.destroy();
+                    func()
+                });
+                $modal.find('#btnCancel').click(function() {
+                    modal.destroy();
+                });
+            }).show();
+        }
+        else
+            func();
+    }
 
-    window.nwWindow.menu = menu;
+    function setupFileDialogs() {
+        $('#openFileDialog').change(function(e){
+            // Ignore empty values, we clear the value to allow opening the same file again
+            if(this.value === '') return;
+            var path = this.files[0].path;
+            DiagramIO.read(path, function(err){
+                if(!err) {
+                    toastr.success('Opened diagram from '+path, 'Successfully Opened');
+                    setDiagramPath(path);
+                    dialogPromise.resolve();
+                }
+                else
+                    toastr.error(err, 'Error');
+            })
+        });
+        $('#saveFileDialog').change(function(e){
+            // Ignore empty values, we clear the value to allow opening the same file again
+            if(this.value === '') return;
+            var path = this.files[0].path;
+            DiagramIO.write(path, function(err){
+                if(!err) {
+                    toastr.success('Saved diagram to '+path, 'Sucessfully Saved');
+                    setDiagramPath(path)
+                    dialogPromise.resolve();
+                }
+                else
+                    toastr.error(err, 'Error');
+            });
+        });
+        $('#exportFileDialog').change(function(e){
+            // Ignore empty values, we clear the value to allow opening the same file again
+            if(this.value === '') return;
+            var path = this.files[0].path;
+            toastr.warning('Not yet implemented');
+            dialogPromise.resolve();
+        });
+    }
 
-    // Developer shortcuts
-    document.addEventListener('keydown', function(e){
-      // Ctrl/Cmd + Shift + I : Open Dev Tools
-      if((e.ctrlKey || e.metaKey) && e.altKey && e.keyCode === 73)
-        window.nwWindow.showDevTools();
-      // Ctrl/Cmd + Shift + I : Reload Application
-      if((e.ctrlKey || e.metaKey) && e.shiftKey && e.keyCode === 82)
-        window.nwWindow.reloadDev();
-    });
 
-    // Disable brower opening files when dragging onto the window
-    window.ondragover = function(e) { e.preventDefault(); return false };
-    window.ondrop = function(e) { e.preventDefault(); return false };
+    function setupMenu() {
+        // Setup menu
+        // Create an empty menu
+        var menu = new gui.Menu({type: 'menubar'});
 
+        var mod = isMac ? '⌘' : 'Ctrl';
+
+        // Empty app menu when running mac
+        if(isMac)
+            menu.append(new gui.MenuItem({label: 'D&D'}));
+
+        // File menu
+        var fileMenu = new gui.MenuItem({
+            label: 'File',
+            submenu: new gui.Menu()
+        });
+
+        fileMenu.submenu.append(new gui.MenuItem({
+            label: 'New ('+mod+'+N)',
+            click: newDiagram
+        }));
+
+        fileMenu.submenu.append(new gui.MenuItem({
+            type: 'separator'
+        }));
+
+        fileMenu.submenu.append(new gui.MenuItem({
+            label: 'Open ('+mod+'+O)',
+            click: openDiagram
+        }));
+
+        fileMenu.submenu.append(new gui.MenuItem({
+            label: 'Save ('+mod+'+S)',
+            click: saveDiagram
+        }));
+
+        fileMenu.submenu.append(new gui.MenuItem({
+            label: 'Save As ('+mod+'+Shift+S)',
+            click: saveDiagramAs
+        }));
+
+        fileMenu.submenu.append(new gui.MenuItem({
+            label: 'Export ('+mod+'+E)',
+            click: exportDiagram
+        }));
+
+        fileMenu.submenu.append(new gui.MenuItem({
+            type: 'separator'
+        }));
+
+        fileMenu.submenu.append(new gui.MenuItem({
+            label: 'Quit ('+mod+'+Q)',
+            click: function() {
+                gui.App.closeAllWindows();
+            }
+        }));
+
+        menu.append(fileMenu);
+
+        window.nwWindow.menu = menu;
+    }
+
+    function setupKeyboardShortcuts() {
+
+        document.addEventListener('keydown', function(e){
+            // User shortcuts
+            // Ctrl/Cmd + N : New Diagram
+            if((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey && e.keyCode === 'N'.charCodeAt(0))
+                newDiagram();
+            // Ctrl/Cmd + O : Open Diagram
+            if((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey && e.keyCode === 'O'.charCodeAt(0))
+                openDiagram();
+            // Ctrl/Cmd + S : Save Diagram
+            if((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey && e.keyCode === 'S'.charCodeAt(0))
+                saveDiagram();
+            // Ctrl/Cmd + Shift + S : Save Diagram As..
+            if((e.ctrlKey || e.metaKey) && !e.altKey && e.shiftKey && e.keyCode === 'S'.charCodeAt(0))
+                saveDiagramAs();
+            // Ctrl/Cmd + E : Export Diagram
+            if((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey && e.keyCode === 'E'.charCodeAt(0))
+                exportDiagram();
+            // Ctrl/Cmd + Q : Save Diagram
+            if((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey && e.keyCode === 'Q'.charCodeAt(0))
+                quit();
+
+            // Developer shortcuts
+
+            // Ctrl/Cmd + Alt + I : Open Dev Tools
+            if((e.ctrlKey || e.metaKey) && e.altKey && e.keyCode === 'I'.charCodeAt(0))
+                window.nwWindow.showDevTools();
+            // Ctrl/Cmd + Shift + R : Reload Application
+            if((e.ctrlKey || e.metaKey) && e.shiftKey && e.keyCode === 'R'.charCodeAt(0))
+                window.nwWindow.reloadDev();
+        });
+    }
+
+    function setupWindow() {
+        nwWindow.on('close', function() {
+            confirmCloseDiagram('Save before closing?', function(){
+                nwWindow.close(true);
+            });
+        })
+    }
 });
