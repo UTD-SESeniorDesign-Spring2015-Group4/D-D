@@ -18,6 +18,9 @@
     "normalize.css": "~3.0.2",
     "vectorizer": "*",
     "underscore": "~1.8.3",
-    "requirejs": "~2.1.17"
+    "requirejs": "~2.1.17",
+    "PicoModal": "Nycto/PicoModal#~2.1.0",
+    "requirejs-text": "~2.0.14",
+    "toastr": "~2.1.1"
   }
 }

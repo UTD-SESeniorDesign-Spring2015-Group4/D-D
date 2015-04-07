@@ -1,40 +1,54 @@
 define([
-    './DiagramIO'
-], function(DiagramIO){
+    './DiagramIO',
+    'text!../tmpl/dialog.html'
+], function(DiagramIO, tmplDialog){
     // Load native UI library
     var gui = window.nwgui;
     var isMac = process.platform === 'darwin';
+    var dialogTemplate = _.template(tmplDialog);
+    var dialogPromise;
 
     setupMenu()
     setupFileDialogs();
     setupKeyboardShortcuts();
 
+    function setDiagramPath(path) {
+        window.graph.set('path', path, {silent: true});
+        window.graph.set('unsavedChanges', false, {silent: true});
+        document.title = 'D&D' + (path ? ' - ' + path : '');
+    }
+
     function newDiagram() {
-        alert("Not implemented");
+        confirmCloseDiagram('Save before creating new empty diagram?', function(){
+            window.graph.clear();
+            setDiagramPath(undefined)
+            toastr.success('Created new empty diagram', 'New Diagram');
+        });
     }
 
     function openDiagram() {
-        showOpenFileDialog();
+        confirmCloseDiagram('Save before opening another diagram?', showOpenFileDialog)
     }
 
     function quit() {
-        gui.App.closeAllWindows();
+        confirmCloseDiagram('Save before closing?', gui.App.closeAllWindows);
     }
 
-    function saveDiagram() {
+    function saveDiagram(cb) {
         var path = window.graph.get('path');
         if(path) {
             DiagramIO.write(path, function(err){
                 if(!err) {
-                    alert("Saved");
-                    window.graph.set('path', path);
+                    toastr.success('Saved diagram to '+path, 'Sucessfully Saved');
+                    setDiagramPath(path)
+                    cb()
                 }
                 else
-                    alert("Error: ", err)
+                    toastr.error(err, 'Error')
             });
         }
         else
-            showSaveFileDialog();
+            showSaveFileDialog().then(cb);
     }
 
     function saveDiagramAs() {
@@ -42,47 +56,94 @@ define([
     }
 
     function exportDiagram() {
-        alert("Not implemented!");
+        toastr.warning('Not yet implemented');
     }
 
-    function showOpenFileDialog() {
-        $('#openFileDialog').click();
+    function showFileDialog(selector) {
+        var $dialog = $(selector);
+        // Clear the value so opening the same file triggers a change
+        $dialog.val('');
+        // Click on file input so file dialog opens
+        $dialog.click();
+
+        dialogPromise = $.Deferred();
+        return dialogPromise;
     }
 
-    function showSaveFileDialog() {
-        $('#saveFileDialog').click();
-    }
+    // Corresponding showFileDialog for open/save/export
+    var showOpenFileDialog = _.partial(showFileDialog, '#openFileDialog');
+    var showSaveFileDialog = _.partial(showFileDialog, '#saveFileDialog');
+    var showExportFileDialog = _.partial(showFileDialog, '#exportFileDialog');
 
-    function showExportFileDialog() {
-        $('#exportFileDialog').click();
+    function confirmCloseDiagram(text, func) {
+        if(window.graph.get('unsavedChanges'))
+        {
+            picoModal({
+                content: dialogTemplate({
+                    title: 'Save Changes?',
+                    text: 'This diagram has unsaved changes. ' + text,
+                    buttons: {
+                        btnSave: 'Save',
+                        btnDontSave: 'Don\'t Save',
+                        btnCancel: 'Cancel'
+                    }
+                }),
+                closeButton: false,
+                overlayClose: false
+            }).afterCreate(function(modal){
+                var $modal = $(modal.modalElem())
+                $modal.find('#btnSave').click(function() {
+                    modal.destroy();
+                    saveDiagram(func);
+                });
+                $modal.find('#btnDontSave').click(function() {
+                    modal.destroy();
+                    func()
+                });
+                $modal.find('#btnCancel').click(function() {
+                    modal.destroy();
+                });
+            }).show();
+        }
+        else
+            func();
     }
 
     function setupFileDialogs() {
         $('#openFileDialog').change(function(e){
+            // Ignore empty values, we clear the value to allow opening the same file again
+            if(this.value === '') return;
             var path = this.files[0].path;
             DiagramIO.read(path, function(err){
                 if(!err) {
-                    alert("Opened");
-                    window.graph.set('path', path);
+                    toastr.success('Opened diagram from '+path, 'Successfully Opened');
+                    setDiagramPath(path);
+                    dialogPromise.resolve();
                 }
                 else
-                    alert("Error: ", err)
+                    toastr.error(err, 'Error');
             })
         });
         $('#saveFileDialog').change(function(e){
+            // Ignore empty values, we clear the value to allow opening the same file again
+            if(this.value === '') return;
             var path = this.files[0].path;
             DiagramIO.write(path, function(err){
                 if(!err) {
-                    alert("Saved");
-                    window.graph.set('path', path);
+                    toastr.success('Saved diagram to '+path, 'Sucessfully Saved');
+                    setDiagramPath(path)
+                    dialogPromise.resolve();
                 }
                 else
-                    alert("Error: ", err)
+                    toastr.error(err, 'Error');
             });
         });
         $('#exportFileDialog').change(function(e){
+            // Ignore empty values, we clear the value to allow opening the same file again
+            if(this.value === '') return;
             var path = this.files[0].path;
-            alert("Not implemented", path);
+            toastr.warning('Not yet implemented');
+            dialogPromise.resolve();
         });
     }
 
