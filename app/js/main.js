@@ -1,10 +1,12 @@
 requirejs.config({
-    baseUrl: 'js/',
+    baseUrl: 'js/'
 });
 
 requirejs([
-    'winstate',
     'configGUI',
     'app'
-], function($, _, Backbone, joint, winstate, configGUI, App) {
+], function(configGUI, App) {
+    // Disable brower opening files when dragging onto the window
+    window.ondragover = function(e) { e.preventDefault(); return false };
+    window.ondrop = function(e) { e.preventDefault(); return false };
 });
