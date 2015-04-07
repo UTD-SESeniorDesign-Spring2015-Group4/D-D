@@ -6,7 +6,7 @@
   "window": {
   	"title": "D&D",
   	"toolbar": false,
-    "show": false,
+    "show": true,
     "width": 800,
     "height": 600,
     "min_width": 300,
