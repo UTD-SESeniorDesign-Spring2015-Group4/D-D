@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.html",
+  "single-instance": false,
   "window": {
   	"title": "D&D",
   	"toolbar": false,
