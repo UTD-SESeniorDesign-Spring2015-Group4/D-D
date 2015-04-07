@@ -11,6 +11,7 @@ define([
     setupMenu()
     setupFileDialogs();
     setupKeyboardShortcuts();
+    setupWindow();
 
     function setDiagramPath(path) {
         window.graph.set('path', path, {silent: true});
@@ -31,7 +32,7 @@ define([
     }
 
     function quit() {
-        confirmCloseDiagram('Save before closing?', gui.App.closeAllWindows);
+        nwWindow.close();
     }
 
     function saveDiagram(cb) {
@@ -242,5 +243,13 @@ define([
             if((e.ctrlKey || e.metaKey) && e.shiftKey && e.keyCode === 'R'.charCodeAt(0))
                 window.nwWindow.reloadDev();
         });
+    }
+
+    function setupWindow() {
+        nwWindow.on('close', function() {
+            confirmCloseDiagram('Save before closing?', function(){
+                nwWindow.close(true);
+            });
+        })
     }
 });
