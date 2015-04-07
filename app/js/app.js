@@ -45,6 +45,8 @@ define([
       var $window = $(window);
       paper.setDimensions($window.width(), $window.height());
     });
+
+    window.graph = graph;
   }
 
   function setUpDragAndDrop() {
