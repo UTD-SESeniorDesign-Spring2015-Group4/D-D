@@ -92,6 +92,8 @@ define([
         // Create an empty menu
         var menu = new gui.Menu({type: 'menubar'});
 
+        var mod = isMac ? '⌘' : 'Ctrl';
+
         // Empty app menu when running mac
         if(isMac)
             menu.append(new gui.MenuItem({label: 'D&D'}));
@@ -103,7 +105,7 @@ define([
         });
 
         fileMenu.submenu.append(new gui.MenuItem({
-            label: 'New',
+            label: 'New ('+mod+'+N)',
             click: newDiagram
         }));
 
@@ -112,22 +114,22 @@ define([
         }));
 
         fileMenu.submenu.append(new gui.MenuItem({
-            label: 'Open',
+            label: 'Open ('+mod+'+O)',
             click: openDiagram
         }));
 
         fileMenu.submenu.append(new gui.MenuItem({
-            label: 'Save',
+            label: 'Save ('+mod+'+S)',
             click: saveDiagram
         }));
 
         fileMenu.submenu.append(new gui.MenuItem({
-            label: 'Save As',
+            label: 'Save As ('+mod+'+Shift+S)',
             click: saveDiagramAs
         }));
 
         fileMenu.submenu.append(new gui.MenuItem({
-            label: 'Export',
+            label: 'Export ('+mod+'+E)',
             click: exportDiagram
         }));
 
@@ -136,7 +138,7 @@ define([
         }));
 
         fileMenu.submenu.append(new gui.MenuItem({
-            label: 'Quit',
+            label: 'Quit ('+mod+'+Q)',
             click: function() {
                 gui.App.closeAllWindows();
             }
