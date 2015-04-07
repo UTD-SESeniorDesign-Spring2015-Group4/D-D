@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.html",
+  "single-instance": false,
   "window": {
   	"title": "D&D",
   	"toolbar": false,
-    "show": false,
+    "show": true,
     "width": 800,
     "height": 600,
     "min_width": 300,

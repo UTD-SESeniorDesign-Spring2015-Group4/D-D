@@ -1,0 +1,11 @@
+<h1>
+    <%= title %>
+</h1>
+<p>
+    <%= text %>
+</p>
+<p>
+    <% _.each(buttons, function(label, id) { %>
+        <button id="<%= id %>"><%= label %></button>
+    <% }); %>
+</p>
