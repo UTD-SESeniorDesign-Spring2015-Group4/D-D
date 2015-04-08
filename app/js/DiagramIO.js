@@ -4,13 +4,20 @@ define([], function () {
 
     function createManifest(json) {
         return {
-            components: _.map(json.cells, function(i){
-                var component = _.pick(i, ['id', 'name', 'type']);
-                component.connections = _.map(_.filter(json.cells, {type: 'link', source: {id: component.id}}), function(link){
-                    return link.target.id;
-                });
-                return component;
-            })
+            components: _(json.cells)
+                .map(function(c) {
+                    var component = _.pick(c, ['id', 'name', 'type']);
+                    component.connections = _(json.cells)
+                        .filter(function(l) {
+                            return l.type === 'link' && (l.source.id === component.id || l.target.id === component.id);
+                        })
+                        .map(function(l) {
+                            return l.target.id === component.id ? l.source.id : l.target.id;
+                        });
+                    return component;
+                }).filter(function(c) {
+                    return c.type !== 'link';
+                })
         }
     }
 
