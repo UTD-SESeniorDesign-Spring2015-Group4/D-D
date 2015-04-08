@@ -14,6 +14,16 @@
     window.nwgui = require('nw.gui');
     window.nwWindow = nwgui.Window.get();
 
+    document.addEventListener('keydown', function(e){
+        // Developer shortcuts
+        // Ctrl/Cmd + Alt + I : Open Dev Tools
+        if((e.ctrlKey || e.metaKey) && e.altKey && e.keyCode === 'I'.charCodeAt(0))
+            window.nwWindow.showDevTools();
+        // Ctrl/Cmd + Shift + R : Reload Application
+        if((e.ctrlKey || e.metaKey) && e.shiftKey && e.keyCode === 'R'.charCodeAt(0))
+            window.nwWindow.reloadDev();
+    });
+
     // window.requireNode = require;
     // window.require = undefined;
 

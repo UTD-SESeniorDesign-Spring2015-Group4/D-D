@@ -57,7 +57,7 @@ define([
     }
 
     function exportDiagram() {
-        toastr.warning('Not yet implemented');
+        showExportFileDialog();
     }
 
     function showFileDialog(selector) {
@@ -131,7 +131,7 @@ define([
             var path = this.files[0].path;
             DiagramIO.write(path, function(err){
                 if(!err) {
-                    toastr.success('Saved diagram to '+path, 'Sucessfully Saved');
+                    toastr.success('Saved diagram to '+path, 'Successfully Saved');
                     setDiagramPath(path)
                     dialogPromise.resolve();
                 }
@@ -143,8 +143,12 @@ define([
             // Ignore empty values, we clear the value to allow opening the same file again
             if(this.value === '') return;
             var path = this.files[0].path;
-            toastr.warning('Not yet implemented');
-            dialogPromise.resolve();
+            DiagramIO.export(path, function(err){
+               if(!err) {
+                   toastr.success('Exported manifest to '+path, 'Successfully exported');
+                   dialogPromise.resolve();
+               }
+            });
         });
     }
 
@@ -233,15 +237,6 @@ define([
             // Ctrl/Cmd + Q : Save Diagram
             if((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey && e.keyCode === 'Q'.charCodeAt(0))
                 quit();
-
-            // Developer shortcuts
-
-            // Ctrl/Cmd + Alt + I : Open Dev Tools
-            if((e.ctrlKey || e.metaKey) && e.altKey && e.keyCode === 'I'.charCodeAt(0))
-                window.nwWindow.showDevTools();
-            // Ctrl/Cmd + Shift + R : Reload Application
-            if((e.ctrlKey || e.metaKey) && e.shiftKey && e.keyCode === 'R'.charCodeAt(0))
-                window.nwWindow.reloadDev();
         });
     }
 
