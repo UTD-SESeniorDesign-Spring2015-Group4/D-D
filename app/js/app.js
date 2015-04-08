@@ -114,43 +114,43 @@ define([
     };
 
     switch(type) {
-      case 'client':
+      case 'Client':
         component = new Client({
           position: position,
           size: size
         });
         break;
-      case 'wan':
+      case 'Wan':
         component = new Wan({
           position: position,
           size: size
         });
         break;
-      case 'loadbalancer':
+      case 'Loadbalancer':
         component = new Loadbalancer({
           position: position,
           size: size
         });
         break;
-      case 'webfrontendserver':
+      case 'WebfrontendServer':
         component = new WebfrontendServer({
           position: position,
           size: size
         });
         break;
-      case 'middlewareserver':
+      case 'MiddlewareServer':
         component = new MiddlewareServer({
           position: position,
           size: size
         });
         break;
-      case 'applicationserver':
+      case 'ApplicationServer':
         component = new ApplicationServer({
           position: position,
           size: size
         });
         break;
-      case 'databaseserver':
+      case 'DatabaseServer':
         component = new DatabaseServer({
           position: position,
           size: size
