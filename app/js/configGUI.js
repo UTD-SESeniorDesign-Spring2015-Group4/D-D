@@ -233,15 +233,6 @@ define([
             // Ctrl/Cmd + Q : Save Diagram
             if((e.ctrlKey || e.metaKey) && !e.altKey && !e.shiftKey && e.keyCode === 'Q'.charCodeAt(0))
                 quit();
-
-            // Developer shortcuts
-
-            // Ctrl/Cmd + Alt + I : Open Dev Tools
-            if((e.ctrlKey || e.metaKey) && e.altKey && e.keyCode === 'I'.charCodeAt(0))
-                window.nwWindow.showDevTools();
-            // Ctrl/Cmd + Shift + R : Reload Application
-            if((e.ctrlKey || e.metaKey) && e.shiftKey && e.keyCode === 'R'.charCodeAt(0))
-                window.nwWindow.reloadDev();
         });
     }
 
