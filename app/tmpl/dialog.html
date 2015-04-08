@@ -1,11 +1,13 @@
-<h1>
-    <%= title %>
-</h1>
-<p>
-    <%= text %>
-</p>
-<p>
-    <% _.each(buttons, function(label, id) { %>
-        <button id="<%= id %>"><%= label %></button>
-    <% }); %>
-</p>
+<div class="unsaved-changes-dialog">
+    <h1 class="title">
+        <%= title %>
+    </h1>
+    <p class="text">
+        <%= text %>
+    </p>
+    <p class="button-container">
+        <% _.each(buttons, function(opt, id) { %>
+            <button class="<%= opt.className %>" id="<%= id %>"><%= opt.text %></button>
+        <% }); %>
+    </p>
+</div>

@@ -84,9 +84,18 @@ define([
                     title: 'Save Changes?',
                     text: 'This diagram has unsaved changes. ' + text,
                     buttons: {
-                        btnSave: 'Save',
-                        btnDontSave: 'Don\'t Save',
-                        btnCancel: 'Cancel'
+                        btnSave: {
+                            text: 'Save',
+                            className: 'pure-button pure-button-primary'
+                        },
+                        btnDontSave: {
+                            text: 'Don\'t Save',
+                            className: 'pure-button pure-button-danger'
+                        },
+                        btnCancel: {
+                            text: 'Cancel',
+                            className: 'pure-button'
+                        }
                     }
                 }),
                 closeButton: false,
