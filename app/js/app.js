@@ -15,6 +15,8 @@ define([
   var graph;
   var paper;
 
+  var linkClickStack = [];
+
   // The component that is currently being dragged.
   var componentDragged;
 
@@ -31,6 +33,9 @@ define([
     $canvas = $("#canvas");
   }
 
+  /**
+   * Set up the paper / graph.
+   */
   function setUpPaper() {
     graph = new joint.dia.Graph;
     paper = new joint.dia.Paper({
@@ -41,11 +46,34 @@ define([
       model: graph
     });
 
+    /**
+     * Set up the click for linking.
+     */
+    paper.on('cell:pointerclick', function(cellView) {
+       linkClickStack.push(cellView);
+
+      if (linkClickStack.length === 2) {
+        var element1 = linkClickStack.pop();
+        var element2 = linkClickStack.pop();
+
+        graph.addCell(new joint.dia.Link({
+          source: {
+            id: element1.model.id
+          },
+          target: {
+            id: element2.model.id
+          }
+        }));
+      }
+       console.log('cell view ' + cellView.model.id + ' was clicked');
+    });
+
     $(window).resize(function(){
       var $window = $(window);
       paper.setDimensions($window.width(), $window.height());
     });
 
+    // Expose the graph so it can be accessed by the fileIO code.
     window.graph = graph;
     graph.on('change add remove', function(e){
       graph.set('unsavedChanges', true, {silent: true});
@@ -66,13 +94,20 @@ define([
 
   function dropOnPaper(event) {
     var component;
-
     var type = componentDragged.data('component');
+
+    // Get the offset of the canvas from the window.
     var offset = $canvas.offset();
+
+    // Edit the offset to center the drop point with the icon being dragged.
+    offset.left += (componentDragged.width() / 2);
+    offset.top -= (componentDragged.height() / 2);
+
     var position = {
       x: event.originalEvent.clientX - offset.left,
-      y: event.originalEvent.clientY - offset.top
+      y: event.originalEvent.clientY + offset.top
     };
+
     var size = {
       width: componentDragged.width(),
       height: componentDragged.height()
@@ -128,4 +163,6 @@ define([
       Console.log("You have dragged a component of unknown type onto the canvas.");
     }
   }
+
+
 });
