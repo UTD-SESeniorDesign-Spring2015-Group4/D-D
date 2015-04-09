@@ -72,6 +72,10 @@ html, body {
     cursor: pointer;
 }
 
+.toolbox li img.active {
+    border: 1px solid white;
+}
+
 .palette li:hover {
     cursor: move;
 }

@@ -15,12 +15,8 @@ define([
   var graph;
   var paper;
 
-  var linkClickStack = [];
-
   // The component that is currently being dragged.
   var componentDragged;
-
-
 
   $(document).ready(function() {
     setUpCommonQueries();
@@ -45,28 +41,7 @@ define([
       gridSize: 10,
       model: graph
     });
-
-    /**
-     * Set up the click for linking.
-     */
-    paper.on('cell:pointerclick', function(cellView) {
-       linkClickStack.push(cellView);
-
-      if (linkClickStack.length === 2) {
-        var element1 = linkClickStack.pop();
-        var element2 = linkClickStack.pop();
-
-        graph.addCell(new joint.dia.Link({
-          source: {
-            id: element1.model.id
-          },
-          target: {
-            id: element2.model.id
-          }
-        }));
-      }
-       console.log('cell view ' + cellView.model.id + ' was clicked');
-    });
+    window.paper = paper;
 
     $(window).resize(function(){
       var $window = $(window);
@@ -93,8 +68,15 @@ define([
   }
 
   function dropOnPaper(event) {
+    var scaleFactor = 2.5;
     var component;
     var type = componentDragged.data('component');
+
+    // Set the size for the new component.
+    var size = {
+      width: componentDragged.width() * scaleFactor,
+      height: componentDragged.height() * scaleFactor
+    };
 
     // Get the offset of the canvas from the window.
     var offset = $canvas.offset();
@@ -106,11 +88,6 @@ define([
     var position = {
       x: event.originalEvent.clientX - offset.left,
       y: event.originalEvent.clientY + offset.top
-    };
-
-    var size = {
-      width: componentDragged.width(),
-      height: componentDragged.height()
     };
 
     switch(type) {
@@ -163,6 +140,4 @@ define([
       Console.log("You have dragged a component of unknown type onto the canvas.");
     }
   }
-
-
 });
