@@ -29,6 +29,8 @@
 !define prodname "DD"
 !define exec "DD.exe"
 
+!define filetype ".dgrm"
+
 ; optional stuff
 
 ; Set the text which prompts the user to enter the installation directory
@@ -138,13 +140,13 @@ Section
   WriteRegStr HKLM "${uninstkey}" "UninstallString" '"$INSTDIR\${uninstaller}"'
 
 !ifdef filetype
-  WriteRegStr HKCR "${filetype}" "" "${prodname}"
+  WriteRegStr HKCU "Software\Classes\${filetype}" "" "${prodname}"
 !endif
 
-  WriteRegStr HKCR "${prodname}\Shell\open\command\" "" '"$INSTDIR\${exec} "%1"'
+  WriteRegStr HKCU "Software\Classes\${prodname}\shell\Open\Command\" "" '"$INSTDIR\${exec} "%1"'
 
 !ifdef icon
-  WriteRegStr HKCR "${prodname}\DefaultIcon" "" "$INSTDIR\${icon}"
+  WriteRegStr HKCU "Software|lasses${prodname}\DefaultIcon" "" "$INSTDIR\${icon}"
 !endif
 
   SetOutPath $INSTDIR

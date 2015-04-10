@@ -5,8 +5,9 @@ define([
   'components/Loadbalancer',
   'components/MiddlewareServer',
   'components/Wan',
-  'components/WebfrontendServer'
-], function (ApplicationServer, Client, DatabaseServer, Loadbalancer, MiddlewareServer, Wan, WebfrontendServer) {
+  'components/WebfrontendServer',
+  './configGUI'
+], function (ApplicationServer, Client, DatabaseServer, Loadbalancer, MiddlewareServer, Wan, WebfrontendServer, configGUI) {
   "use strict";
 
   var $sidebar;
@@ -22,6 +23,10 @@ define([
     setUpCommonQueries();
     setUpPaper();
     setUpDragAndDrop();
+    // Open a diagram file if specified by command line arguments
+    // This also happens if you drag a file onto the executable
+    if(nwgui.App.argv.length != 0)
+      configGUI.open(nwgui.App.argv[0])
   });
 
   function setUpCommonQueries() {
