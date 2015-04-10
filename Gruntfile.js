@@ -50,10 +50,16 @@ module.exports = function(grunt) {
         cmd: "sleep 5 && \"C:\\Program Files (x86)\\NSIS\\makensis.exe\" install-config.nsi"
       }
     },
+    clean: {
+      default: ['./dist'],
+      options: {
+        force: true
+      }
+    }
   });
-  grunt.registerTask('build', ['nodewebkit:default']);
-  grunt.registerTask('build-linux', ['nodewebkit:linux']);
-  grunt.registerTask('build-installer', ['build:windows', 'exec:nsis']);
+  grunt.registerTask('build', ['clean', 'nodewebkit:default']);
+  grunt.registerTask('build-linux', ['clean', 'nodewebkit:linux']);
+  grunt.registerTask('build-installer', ['clean', 'build:windows', 'exec:nsis']);
   grunt.registerTask('run', ['exec:runNW']);
   return grunt.registerTask('default', ['run']);
 };

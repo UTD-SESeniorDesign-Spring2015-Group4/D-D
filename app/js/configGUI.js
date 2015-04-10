@@ -256,4 +256,17 @@ define([
             });
         })
     }
+
+    return {
+        open: function(path) {
+            DiagramIO.read(path, function(err){
+                if(!err) {
+                    toastr.success('Opened diagram from '+path, 'Successfully Opened');
+                    setDiagramPath(path);
+                }
+                else
+                    toastr.error(err, 'Error');
+            })
+        }
+    }
 });
