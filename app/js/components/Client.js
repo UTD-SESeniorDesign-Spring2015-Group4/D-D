@@ -4,7 +4,12 @@ define([
   var Client = Component.extend({
     defaults: {
       name: '',
-      markup: '<g class="scalable"><path id="laptop-icon" fill="#333333" d="M325.8,238.9H27.9v200.6h297.8V238.9L325.8,238.9z M300.5,414.2H53.2v-150h247.2V414.2L300.5,414.2z M325.8,453.6H27.9L-16.1,531h386.2L325.8,453.6z M141.2,514.6l7.5-22h56.7l7.5,22H141.2z"/></g>',
+      markup: [
+        '<g class="scalable">',
+          '<path id="laptop-icon" fill="#333333" d="M783.3-0.1H212v384.7h571.1V-0.1H783.3z M734.7,336.1H260.5V48.4h474.1v287.7H734.7zM783.3,411.7H212l-84.4,148.4h740.7L783.3,411.7z M429.2,528.6l14.4-42.2h108.7l14.4,42.2H429.2z"/>',
+          '<rect x="127.6" y="-0.1" fill="rgba(0, 0, 0, 0)" width="740.7" height="560.2"/>',
+        '</g>'
+      ].join(''),
       type: 'Client'
     }
   });
