@@ -1,4 +1,4 @@
-define(['text!../tmpl/tool.html', './SelectionTool', './LinkTool'], function (tmplToolStr, SelectionTool, LinkTool) {
+define(['text!../tmpl/tool.html', './tools/SelectionTool', './tools/LinkTool'], function (tmplToolStr, SelectionTool, LinkTool) {
   'use strict';
 
   var paper, graph, $toolbox;
