@@ -23,7 +23,8 @@ define([
         text: {
           fill: "#333333"
         }
-      }
+      },
+      paletteIcon: 'img/loadbalancer_palette.svg'
     },
     initialize: function() {
       // Dynamically generate the markup using a template.

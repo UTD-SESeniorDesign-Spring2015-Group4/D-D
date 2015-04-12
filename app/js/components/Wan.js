@@ -22,7 +22,8 @@ define([
         text: {
           fill: "#333333"
         }
-      }
+      },
+      paletteIcon: 'img/wan_palette.svg'
     },
     initialize: function() {
       // Dynamically generate the markup using a template.

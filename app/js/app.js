@@ -5,8 +5,9 @@ define([
   'components/Loadbalancer',
   'components/MiddlewareServer',
   'components/Wan',
-  'components/WebfrontendServer'
-], function (ApplicationServer, Client, DatabaseServer, Loadbalancer, MiddlewareServer, Wan, WebfrontendServer) {
+  'components/WebfrontendServer',
+  './configGUI'
+], function (ApplicationServer, Client, DatabaseServer, Loadbalancer, MiddlewareServer, Wan, WebfrontendServer, configGUI) {
   "use strict";
 
   var $sidebar;
@@ -15,13 +16,14 @@ define([
   var graph;
   var paper;
 
-  // The component that is currently being dragged.
-  var componentDragged;
-
   $(document).ready(function() {
     setUpCommonQueries();
     setUpPaper();
     setUpDragAndDrop();
+    // Open a diagram file if specified by command line arguments
+    // This also happens if you drag a file onto the executable
+    if(nwgui.App.argv.length != 0)
+      configGUI.open(nwgui.App.argv[0])
   });
 
   function setUpCommonQueries() {
@@ -59,18 +61,14 @@ define([
 
   function setUpDragAndDrop() {
     $canvas.on('drop', dropOnPaper);
-    $('.component').on('dragstart', componentDragStart);
   }
 
-  // Drag and drop handlers ////////////////////////////////////////////////////
-  function componentDragStart(event) {
-    componentDragged = $(event.target).is('img') ? $(event.target) : $(event.target).children();
-  }
-
+  // drop handler ////////////////////////////////////////////////////
   function dropOnPaper(event) {
     var scaleFactor = 2;
     var component;
-    var type = componentDragged.data('component');
+    var type = event.originalEvent.dataTransfer.getData('component');
+    var componentDragged = $('[data-component=' + type + ']');
 
     // Set the size for the new component.
     var size = {
