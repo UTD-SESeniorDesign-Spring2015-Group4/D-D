@@ -79,6 +79,9 @@ define([
               },
               target: {
                 id: element2.model.id
+              },
+              router: {
+                name: 'manhattan'
               }
             }));
           }
@@ -94,10 +97,8 @@ define([
    *  True to freeze and false to unfreeze all components on the graph.
    */
   function freezeComponents(freeze) {
-    freeze = (freeze === undefined) ? false : !freeze;
-
     window.graph.get('cells').forEach(function(cell) {
-      window.paper.findViewByModel(cell).options.interactive = freeze;
+      window.paper.findViewByModel(cell).options.interactive = !freeze;
     });
   }
 });
