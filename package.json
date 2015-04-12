@@ -24,6 +24,7 @@
   "dependencies": {
     "grunt-contrib-clean": "^0.6.0",
     "grunt-exec": "^0.4.6",
+    "lodash": "^3.6.0",
     "requirejs": "^2.1.17"
   }
 }

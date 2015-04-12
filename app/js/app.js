@@ -65,7 +65,7 @@ define([
 
   // drop handler ////////////////////////////////////////////////////
   function dropOnPaper(event) {
-    var scaleFactor = 2.5;
+    var scaleFactor = 2;
     var component;
     var type = event.originalEvent.dataTransfer.getData('component');
     var componentDragged = $('[data-component=' + type + ']');
