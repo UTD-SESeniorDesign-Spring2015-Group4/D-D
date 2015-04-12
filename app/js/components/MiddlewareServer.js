@@ -10,7 +10,8 @@ define([
           '<rect x="152.4" y="0.1" fill="rgba(0, 0, 0, 0)" width="686.1" height="559.8"/>',
         '</g>'
       ].join(''),
-      type: 'MiddlewareServer'
+      type: 'MiddlewareServer',
+      paletteIcon: 'img/middlewareserver_palette.svg'
     }
   });
 

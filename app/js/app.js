@@ -16,9 +16,6 @@ define([
   var graph;
   var paper;
 
-  // The component that is currently being dragged.
-  var componentDragged;
-
   $(document).ready(function() {
     setUpCommonQueries();
     setUpPaper();
@@ -64,18 +61,14 @@ define([
 
   function setUpDragAndDrop() {
     $canvas.on('drop', dropOnPaper);
-    $('.component').on('dragstart', componentDragStart);
   }
 
-  // Drag and drop handlers ////////////////////////////////////////////////////
-  function componentDragStart(event) {
-    componentDragged = $(event.target).is('img') ? $(event.target) : $(event.target).children();
-  }
-
+  // drop handler ////////////////////////////////////////////////////
   function dropOnPaper(event) {
     var scaleFactor = 2.5;
     var component;
-    var type = componentDragged.data('component');
+    var type = event.originalEvent.dataTransfer.getData('component');
+    var componentDragged = $('[data-component=' + type + ']');
 
     // Set the size for the new component.
     var size = {

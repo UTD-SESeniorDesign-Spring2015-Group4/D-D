@@ -3,7 +3,8 @@ define([], function(){
     defaults: {
       name: '',
       markup: '',
-      type: ''
+      type: '',
+      paletteIcon: '',
     },
 
     initialize: function() {

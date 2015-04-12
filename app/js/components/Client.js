@@ -10,7 +10,8 @@ define([
           '<rect x="127.6" y="-0.1" fill="rgba(0, 0, 0, 0)" width="740.7" height="560.2"/>',
         '</g>'
       ].join(''),
-      type: 'Client'
+      type: 'Client',
+      paletteIcon: 'img/client_palette.svg'
     }
   });
 

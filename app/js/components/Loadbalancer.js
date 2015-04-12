@@ -11,7 +11,8 @@ define([
         '<rect x="208.3" fill="rgba(0, 0, 0, 0)" width="447.8" height="560"/>',
       '</g>'
       ].join(''),
-      type: 'Loadbalancer'
+      type: 'Loadbalancer',
+      paletteIcon: 'img/loadbalancer_palette.svg'
     }
   });
 

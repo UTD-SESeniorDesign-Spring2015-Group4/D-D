@@ -10,7 +10,8 @@ define([
           '<rect x="55.7" y="0.1" fill="rgba(0, 0, 0, 0)" width="848.6" height="559.8"/>',
         '</g>'
       ].join(''),
-      type: 'Wan'
+      type: 'Wan',
+      paletteIcon: 'img/wan_palette.svg'
     }
   });
 

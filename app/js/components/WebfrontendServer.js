@@ -10,7 +10,8 @@ define([
           '<rect fill="rgba(0, 0, 0, 0)" width="960" height="560"/>',
         '</g>'
       ].join(''),
-      type: 'WebfrontendServer'
+      type: 'WebfrontendServer',
+      paletteIcon: 'img/webfrontentserver_palette.svg'
     }
   });
 

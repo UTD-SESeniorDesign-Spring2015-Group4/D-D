@@ -10,7 +10,8 @@ define([
         '<rect x="242.7" y="-0.1" fill="rgba(0, 0, 0, 0)" width="474.6" height="560.1"/>',
       '</g>'
       ].join(''),
-      type: 'DatabaseServer'
+      type: 'DatabaseServer',
+      paletteIcon: 'img/databaseserver_palette.svg'
     }
   });
 
