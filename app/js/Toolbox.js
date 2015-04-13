@@ -60,6 +60,8 @@ define(['text!../tmpl/tool.html', './tools/SelectionTool', './tools/LinkTool'], 
       getActiveTool().onClick.apply(graph, arguments);
     });
 
+    paper.on('cell:pointerdblclick', function(cellView) {
+      getActiveTool().onDoubleClick.apply(graph, arguments);
+    });
   }
-
 });

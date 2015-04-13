@@ -1,0 +1,13 @@
+<div class="edit-component-dialog">
+    <h1 class="title">
+        <%= title %>
+    </h1>
+    <form>
+        <label>Component Name<input id="component-name-input" type="text" value="<%= componentName %>"/></label>
+    </form>
+    <p class="button-container">
+        <% _.each(buttons, function(opt, id) { %>
+        <button class="<%= opt.className %>" id="<%= id %>"><%= opt.text %></button>
+        <% }); %>
+    </p>
+</div>

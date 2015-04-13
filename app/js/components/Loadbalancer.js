@@ -13,7 +13,7 @@ define([
             '<path id="code-fork-icon_1_" fill="#333333" d="M547.8,36.6C437,32.9,422.1,102.8,410.2,159.3c-11.3,53.5-20.3,96.5-93.5,101.5c-7.8-21.5-28.2-36.9-52.4-36.9c-30.9,0-56,25.1-56,56s25.1,56,56,56c24.4,0,44.9-15.6,52.5-37.3h230.8c7.7,21.7,28.2,37.3,52.5,37.3c30.9,0,56-25.1,56-56s-25.1-56-56-56c-24.4,0-44.9,15.6-52.5,37.3H407.7c24.5-26.4,32.2-62.4,39-94.2c11.8-55.5,20.4-96.5,100.5-93.3c7.5,22.2,28.1,38.3,52.8,38.3c30.9,0,56-25.1,56-56S631,0,600.1,0C576,0.1,555.7,15.3,547.8,36.6z M566.5,280.1c0-18.4,15.2-33.6,33.6-33.6c18.4,0,33.6,15.2,33.6,33.6c0,18.4-15.2,33.6-33.6,33.6C581.6,313.7,566.5,298.5,566.5,280.1z M297.7,280.1c0,18.4-15.2,33.6-33.6,33.6c-18.4,0-33.6-15.2-33.6-33.6c0-18.4,15.2-33.6,33.6-33.6C282.6,246.5,297.7,261.6,297.7,280.1z M600.1,22.5c18.4,0,33.6,15.2,33.6,33.6s-15.2,33.6-33.6,33.6c-18.4,0-33.6-15.2-33.6-33.6S581.6,22.5,600.1,22.5z"/>',
             '<rect x="208.3" fill="rgba(0, 0, 0, 0)" width="447.8" height="560"/>',
           '</g>',
-          '<text class="name"><%= name %></text>'
+          '<text class="name" font-size="15" x="0" y="75"><%= name %></text>'
         ].join('')
       ),
       attrs: {
@@ -25,14 +25,6 @@ define([
         }
       },
       paletteIcon: 'img/loadbalancer_palette.svg'
-    },
-    initialize: function() {
-      // Dynamically generate the markup using a template.
-      this.set('markup', this.get('template')(this.attributes));
-
-      // This overrides its super initialize function.
-      // To use this, must call the parent prototype's initialize function.
-      Component.prototype.initialize.apply(this, arguments);
     }
   });
 
