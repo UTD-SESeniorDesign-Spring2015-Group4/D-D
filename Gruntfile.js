@@ -57,7 +57,7 @@ module.exports = function(grunt) {
       }
     },
     jshint: {
-      default: ['./app/js/**']
+      js: ['app/js/**/*.js']
     }
   });
   grunt.registerTask('build', ['jshint', 'clean', 'nodewebkit:default']);
