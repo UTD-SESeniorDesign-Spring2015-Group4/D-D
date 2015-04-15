@@ -63,5 +63,18 @@ define(['text!../tmpl/tool.html', './tools/SelectionTool', './tools/LinkTool'], 
     paper.on('cell:pointerdblclick', function(cellView) {
       getActiveTool().onDoubleClick.apply(graph, arguments);
     });
+
+    paper.on('cell:pointerup', function(cellView) {
+      getActiveTool().onPointerUp.apply(graph, arguments);
+    });
+
+    paper.on('cell:pointerdown', function(cellView) {
+      getActiveTool().onPointerDown.apply(graph, arguments);
+    });
+
+    paper.on('cell:pointermove', function(cellView) {
+      getActiveTool().onPointerMove.apply(graph, arguments);
+    });
+
   }
 });

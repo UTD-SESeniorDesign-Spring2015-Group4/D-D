@@ -16,6 +16,7 @@ define(
       return _.defaults({
         name: 'selection',
         icon: 'img/mouse_tool.svg',
+<<<<<<< HEAD
         onDoubleClick: function (cellView) {
           var componentClicked = cellView.model;
 
@@ -49,6 +50,11 @@ define(
               modal.destroy();
             });
           }).show();
-        }
-      }, Tool);
+        },
+	onPointerDown: function(cell) {
+		console.log("pointer down");
+	}
     });
+            }, Tool);
+});
+>>>>>>> rahatarmanahmed/senior-project-master
