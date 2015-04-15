@@ -55,11 +55,14 @@ module.exports = function(grunt) {
       options: {
         force: true
       }
+    },
+    jshint: {
+      default: ['./app/js/**']
     }
   });
-  grunt.registerTask('build', ['clean', 'nodewebkit:default']);
-  grunt.registerTask('build-linux', ['clean', 'nodewebkit:linux']);
-  grunt.registerTask('build-installer', ['clean', 'build:windows', 'exec:nsis']);
-  grunt.registerTask('run', ['exec:runNW']);
+  grunt.registerTask('build', ['jshint', 'clean', 'nodewebkit:default']);
+  grunt.registerTask('build-linux', ['jshint', 'clean', 'nodewebkit:linux']);
+  grunt.registerTask('build-installer', ['jshint', 'clean', 'build:windows', 'exec:nsis']);
+  grunt.registerTask('run', ['jshint', 'exec:runNW']);
   return grunt.registerTask('default', ['run']);
 };

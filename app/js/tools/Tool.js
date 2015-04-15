@@ -18,5 +18,5 @@ define([], function () {
         onPointerUp: _.noop,
         onPointerDown: _.noop,
         onPointerMove: _.noop
-    }
+    };
 });
