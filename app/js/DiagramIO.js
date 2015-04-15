@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-define([], function () {
+define(['./components/Components'], function (Components) {
 
     function createManifest(json) {
         return {
@@ -23,12 +23,34 @@ define([], function () {
 
     return {
         read: function(path, cb) {
+            cb = cb || $.noop;
             fs.readFile(path, function(err, data){
                 try {
                     if(err)
                         throw err;
                     window.graph.clear();
-                    window.graph.fromJSON(JSON.parse(data));
+                    var json = JSON.parse(data),
+                        links = [];
+                    json.cells.forEach(function(cell){
+                        var type = cell.type;
+                        // Cell is a component
+                        if(type !== 'link') {
+                            var SomeSubclassOfComponent = Components.typeComponentMap[type];
+                            var component = new SomeSubclassOfComponent(
+                                _.pick(cell, ['position', 'size', 'angle', 'name', 'id', 'z'])
+                            );
+                            graph.addCell(component);
+                        }
+                        // Cell is a link
+                        else {
+                            var link = new joint.dia.Link(
+                                _.pick(cell, ['source', 'target', 'router', 'id', 'z'])
+                            );
+                            links.push(link);
+                        }
+                    });
+                    // Add links later just incase there's an issue trying to add links to components that don't exist
+                    graph.addCells(links);
                     cb();
                 }
                 catch(e) {
@@ -37,11 +59,13 @@ define([], function () {
             });
         },
         write: function(path, cb) {
+            cb = cb || $.noop;
             var json = window.graph.toJSON();
             fs.writeFile(path, JSON.stringify(json), cb);
 
         },
         export: function(path, cb) {
+            cb = cb || $.noop;
             fs.writeFile(path, JSON.stringify(createManifest(window.graph.toJSON())), cb);
         }
     };
