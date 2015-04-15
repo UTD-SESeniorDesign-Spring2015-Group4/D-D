@@ -36,6 +36,7 @@ define([
     }
 
     function saveDiagram(cb) {
+        cb = cb || $.noop;
         var path = window.graph.get('path');
         if(path) {
             DiagramIO.write(path, function(err){
