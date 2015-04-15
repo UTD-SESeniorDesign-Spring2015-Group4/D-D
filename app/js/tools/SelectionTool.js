@@ -39,7 +39,7 @@ define(
             closeButton: false,
             overlayClose: false
           }).afterCreate(function (modal) {
-            var $modal = $(modal.modalElem())
+            var $modal = $(modal.modalElem());
             $modal.find('#btnSave').click(function () {
               modal.destroy();
               var componentNameInputValue = $modal.find('#component-name-input').val();
@@ -53,7 +53,9 @@ define(
         onActivated: function(){
             $('.link-tools').css( 'display', 'none');
             $('.marker-arrowheads').css( 'display', 'none');
+        },
+        onPointerDown: function(cell) {
+            console.log("pointer down");
         }
-
       }, Tool);
     });

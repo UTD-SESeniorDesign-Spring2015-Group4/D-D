@@ -15,5 +15,8 @@ define([], function () {
         onActivated: _.noop,
         onDeactivated: _.noop,
         onClick: _.noop,
-    }
+        onPointerUp: _.noop,
+        onPointerDown: _.noop,
+        onPointerMove: _.noop
+    };
 });

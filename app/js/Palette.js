@@ -48,7 +48,7 @@ define([
         $('.component').on('dragstart', function (event) {
             var componentDragged = $(event.target).is('img') ? $(event.target) : $(event.target).children();
             event.originalEvent.dataTransfer.setData('component', componentDragged.data('component'));
-        })
+        });
     }
 
 });

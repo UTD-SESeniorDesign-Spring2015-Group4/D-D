@@ -10,7 +10,7 @@ define(['text!../tmpl/tool.html', './tools/SelectionTool', './tools/LinkTool'], 
   function getToolByName(name) {
     return _.find(tools, function(tool){
       return tool.name === name;
-    })
+    });
   }
 
   function getActiveTool() {
@@ -32,7 +32,7 @@ define(['text!../tmpl/tool.html', './tools/SelectionTool', './tools/LinkTool'], 
 
   function pickTool(tool) {
     var oldTool = $toolbox.find('.active');
-    if(oldTool.length != 0) {
+    if(oldTool.length !== 0) {
       getActiveTool().onDeactivated();
       oldTool.removeClass('active');
     }
@@ -63,5 +63,18 @@ define(['text!../tmpl/tool.html', './tools/SelectionTool', './tools/LinkTool'], 
     paper.on('cell:pointerdblclick', function(cellView) {
       getActiveTool().onDoubleClick.apply(graph, arguments);
     });
+
+    paper.on('cell:pointerup', function(cellView) {
+      getActiveTool().onPointerUp.apply(graph, arguments);
+    });
+
+    paper.on('cell:pointerdown', function(cellView) {
+      getActiveTool().onPointerDown.apply(graph, arguments);
+    });
+
+    paper.on('cell:pointermove', function(cellView) {
+      getActiveTool().onPointerMove.apply(graph, arguments);
+    });
+
   }
 });
