@@ -8,7 +8,7 @@ define([
     var dialogTemplate = _.template(tmplDialog);
     var dialogPromise;
 
-    setupMenu()
+    setupMenu();
     setupFileDialogs();
     setupKeyboardShortcuts();
     setupWindow();
@@ -22,13 +22,13 @@ define([
     function newDiagram() {
         confirmCloseDiagram('Save before creating new empty diagram?', function(){
             window.graph.clear();
-            setDiagramPath(undefined)
+            setDiagramPath(undefined);
             toastr.success('Created new empty diagram', 'New Diagram');
         });
     }
 
     function openDiagram() {
-        confirmCloseDiagram('Save before opening another diagram?', showOpenFileDialog)
+        confirmCloseDiagram('Save before opening another diagram?', showOpenFileDialog);
     }
 
     function quit() {
@@ -41,11 +41,11 @@ define([
             DiagramIO.write(path, function(err){
                 if(!err) {
                     toastr.success('Saved diagram to '+path, 'Sucessfully Saved');
-                    setDiagramPath(path)
-                    cb()
+                    setDiagramPath(path);
+                    cb();
                 }
                 else
-                    toastr.error(err, 'Error')
+                    toastr.error(err, 'Error');
             });
         }
         else
@@ -101,14 +101,14 @@ define([
                 closeButton: false,
                 overlayClose: false
             }).afterCreate(function(modal){
-                var $modal = $(modal.modalElem())
+                var $modal = $(modal.modalElem());
                 $modal.find('#btnSave').click(function() {
                     modal.destroy();
                     saveDiagram(func);
                 });
                 $modal.find('#btnDontSave').click(function() {
                     modal.destroy();
-                    func()
+                    func();
                 });
                 $modal.find('#btnCancel').click(function() {
                     modal.destroy();
@@ -132,7 +132,7 @@ define([
                 }
                 else
                     toastr.error(err, 'Error');
-            })
+            });
         });
         $('#saveFileDialog').change(function(e){
             // Ignore empty values, we clear the value to allow opening the same file again
@@ -141,7 +141,7 @@ define([
             DiagramIO.write(path, function(err){
                 if(!err) {
                     toastr.success('Saved diagram to '+path, 'Successfully Saved');
-                    setDiagramPath(path)
+                    setDiagramPath(path);
                     dialogPromise.resolve();
                 }
                 else
@@ -254,7 +254,7 @@ define([
             confirmCloseDiagram('Save before closing?', function(){
                 nwWindow.close(true);
             });
-        })
+        });
     }
 
     return {
@@ -266,7 +266,7 @@ define([
                 }
                 else
                     toastr.error(err, 'Error');
-            })
+            });
         }
-    }
+    };
 });

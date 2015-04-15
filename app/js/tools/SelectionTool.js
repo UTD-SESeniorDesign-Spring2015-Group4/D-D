@@ -39,7 +39,7 @@ define(
             closeButton: false,
             overlayClose: false
           }).afterCreate(function (modal) {
-            var $modal = $(modal.modalElem())
+            var $modal = $(modal.modalElem());
             $modal.find('#btnSave').click(function () {
               modal.destroy();
               var componentNameInputValue = $modal.find('#component-name-input').val();

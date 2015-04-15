@@ -10,7 +10,7 @@ define(['text!../tmpl/tool.html', './tools/SelectionTool', './tools/LinkTool'], 
   function getToolByName(name) {
     return _.find(tools, function(tool){
       return tool.name === name;
-    })
+    });
   }
 
   function getActiveTool() {
@@ -32,7 +32,7 @@ define(['text!../tmpl/tool.html', './tools/SelectionTool', './tools/LinkTool'], 
 
   function pickTool(tool) {
     var oldTool = $toolbox.find('.active');
-    if(oldTool.length != 0) {
+    if(oldTool.length !== 0) {
       getActiveTool().onDeactivated();
       oldTool.removeClass('active');
     }

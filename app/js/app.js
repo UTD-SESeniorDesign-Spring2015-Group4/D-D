@@ -22,8 +22,8 @@ define([
     setUpDragAndDrop();
     // Open a diagram file if specified by command line arguments
     // This also happens if you drag a file onto the executable
-    if(nwgui.App.argv.length != 0)
-      configGUI.open(nwgui.App.argv[0])
+    if(nwgui.App.argv.length !== 0)
+      configGUI.open(nwgui.App.argv[0]);
   });
 
   function setUpCommonQueries() {
@@ -35,7 +35,7 @@ define([
    * Set up the paper / graph.
    */
   function setUpPaper() {
-    graph = new joint.dia.Graph;
+    graph = new joint.dia.Graph();
     paper = new joint.dia.Paper({
       el: $canvas,
       width: "100%",

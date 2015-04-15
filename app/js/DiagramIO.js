@@ -18,7 +18,7 @@ define([], function () {
                 }).filter(function(c) {
                     return c.type !== 'link';
                 })
-        }
+        };
     }
 
     return {
@@ -31,8 +31,8 @@ define([], function () {
                     window.graph.fromJSON(JSON.parse(data));
                     cb();
                 }
-                catch(err) {
-                    cb(err);
+                catch(e) {
+                    cb(e);
                 }
             });
         },
@@ -44,5 +44,5 @@ define([], function () {
         export: function(path, cb) {
             fs.writeFile(path, JSON.stringify(createManifest(window.graph.toJSON())), cb);
         }
-    }
+    };
 });

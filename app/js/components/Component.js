@@ -16,7 +16,7 @@ define([], function(){
 
       // This overrides its super initialize function.
       // To use this, must call the parent prototype's initialize function.
-      joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments)
+      joint.shapes.basic.Generic.prototype.initialize.apply(this, arguments);
     },
     updateName: function() {
       this.set('markup', this.get('template')(this.attributes));
@@ -26,5 +26,5 @@ define([], function(){
     }
   });
 
-  return Component
+  return Component;
 });
