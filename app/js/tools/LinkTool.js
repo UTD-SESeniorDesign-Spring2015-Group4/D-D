@@ -14,6 +14,15 @@ define(['./Tool'], function (Tool) {
         });
     }
 
+    function highlightComponent(component, highlighted){
+        //if (highlighted == true)
+        component.highlight("red");
+        //else
+        //component.highlight("")
+    }
+
+
+
     var componentClickStack = [];
 
     // These are the listeners that are called whenever
@@ -32,7 +41,7 @@ define(['./Tool'], function (Tool) {
             freezeComponents(false);
         },
         onClick: function(cellView) {
-            cellView.highlight("red");
+            highlightComponent(cellView, true);
             componentClickStack.push(cellView);
 
             if (componentClickStack.length === 2) {
@@ -54,6 +63,7 @@ define(['./Tool'], function (Tool) {
                         name: 'manhattan'
                     }
                 }));
+
             }
         }
     }, Tool);
