@@ -49,6 +49,11 @@ define(
               modal.destroy();
             });
           }).show();
+        },
+        onActivated: function(){
+            $('.link-tools').css( 'display', 'none');
+            $('.marker-arrowheads').css( 'display', 'none');
         }
+
       }, Tool);
     });
