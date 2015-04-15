@@ -9,6 +9,9 @@ define(['./Tool'], function (Tool) {
     // onClick: when the canvas is clicked while this tool is active
     return _.defaults({
         name: 'selection',
-        icon: 'img/mouse_tool.svg'
+        icon: 'img/mouse_tool.svg',
+        onPointerDown: function(cell) {
+            console.log ("pointer down");
+        }
     }, Tool);
 });
