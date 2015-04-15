@@ -1,13 +1,7 @@
 define([
-  'components/ApplicationServer',
-  'components/Client',
-  'components/DatabaseServer',
-  'components/Loadbalancer',
-  'components/MiddlewareServer',
-  'components/Wan',
-  'components/WebfrontendServer',
+  'components/Components',
   './configGUI'
-], function (ApplicationServer, Client, DatabaseServer, Loadbalancer, MiddlewareServer, Wan, WebfrontendServer, configGUI) {
+], function (Components, configGUI) {
   "use strict";
 
   var $sidebar;
@@ -88,49 +82,11 @@ define([
       y: event.originalEvent.clientY + offset.top
     };
 
-    switch(type) {
-      case 'Client':
-        component = new Client({
-          position: position,
-          size: size
-        });
-        break;
-      case 'Wan':
-        component = new Wan({
-          position: position,
-          size: size
-        });
-        break;
-      case 'Loadbalancer':
-        component = new Loadbalancer({
-          position: position,
-          size: size
-        });
-        break;
-      case 'WebfrontendServer':
-        component = new WebfrontendServer({
-          position: position,
-          size: size
-        });
-        break;
-      case 'MiddlewareServer':
-        component = new MiddlewareServer({
-          position: position,
-          size: size
-        });
-        break;
-      case 'ApplicationServer':
-        component = new ApplicationServer({
-          position: position,
-          size: size
-        });
-        break;
-      case 'DatabaseServer':
-        component = new DatabaseServer({
-          position: position,
-          size: size
-        });
-    }
+    var SomeSubclassOfComponent = Components.typeComponentMap[type];
+    component = new SomeSubclassOfComponent({
+      position: position,
+      size: size
+    });
 
     if (component !== undefined) {
       graph.addCell(component);
