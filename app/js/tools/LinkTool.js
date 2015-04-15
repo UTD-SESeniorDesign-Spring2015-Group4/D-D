@@ -14,14 +14,14 @@ define(['./Tool'], function (Tool) {
         });
     }
 
-    function highlightComponent(component, highlighted){
-        //if (highlighted == true)
-        component.highlight("red");
-        //else
-        //component.highlight("")
+    function highlightComponent(componentClicked, highlighted){
+        if (highlighted === true){
+            componentClicked.highlight("red");
+        }
+        else if (highlighted === false){
+            componentClicked.highlight("green");
+        }
     }
-
-
 
     var componentClickStack = [];
 
@@ -41,8 +41,17 @@ define(['./Tool'], function (Tool) {
             freezeComponents(false);
         },
         onClick: function(cellView) {
-            highlightComponent(cellView, true);
+
+            var highlightStatus;
+
             componentClickStack.push(cellView);
+
+            // Highlight only the first element
+            if (componentClickStack.length === 1)
+            {
+                highlightStatus = true;
+                highlightComponent(cellView, highlightStatus);
+            }
 
             if (componentClickStack.length === 2) {
                 var element1 = componentClickStack.pop();
@@ -63,7 +72,6 @@ define(['./Tool'], function (Tool) {
                         name: 'manhattan'
                     }
                 }));
-
             }
         }
     }, Tool);
