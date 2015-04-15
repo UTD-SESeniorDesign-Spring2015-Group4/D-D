@@ -32,6 +32,7 @@ define(['./Tool'], function (Tool) {
             freezeComponents(false);
         },
         onClick: function(cellView) {
+            cellView.highlight("red");
             componentClickStack.push(cellView);
 
             if (componentClickStack.length === 2) {
