@@ -51,8 +51,7 @@ define(
           }).show();
         },
         onActivated: function(){
-            $('.link-tools').css( 'display', 'none');
-            $('.marker-arrowheads').css( 'display', 'none');
+
         },
         onPointerDown: function(cell) {
             console.log("pointer down");
