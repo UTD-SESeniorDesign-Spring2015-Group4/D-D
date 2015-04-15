@@ -14,6 +14,15 @@ define(['./Tool'], function (Tool) {
         });
     }
 
+    function highlightComponent(componentClicked, highlighted){
+        if (highlighted === true){
+            componentClicked.highlight("red");
+        }
+        else if (highlighted === false){
+            componentClicked.highlight("green");
+        }
+    }
+
     var componentClickStack = [];
 
     // These are the listeners that are called whenever
@@ -32,8 +41,17 @@ define(['./Tool'], function (Tool) {
             freezeComponents(false);
         },
         onClick: function(cellView) {
-            cellView.highlight("red");
+
+            var highlightStatus;
+
             componentClickStack.push(cellView);
+
+            // Highlight only the first element
+            if (componentClickStack.length === 1)
+            {
+                highlightStatus = true;
+                highlightComponent(cellView, highlightStatus);
+            }
 
             if (componentClickStack.length === 2) {
                 var element1 = componentClickStack.pop();
