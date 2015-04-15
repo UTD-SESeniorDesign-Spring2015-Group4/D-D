@@ -18,9 +18,6 @@ define(['./Tool'], function (Tool) {
         if (highlighted === true){
             componentClicked.highlight("red");
         }
-        else if (highlighted === false){
-            componentClicked.highlight("green");
-        }
     }
 
     var componentClickStack = [];
