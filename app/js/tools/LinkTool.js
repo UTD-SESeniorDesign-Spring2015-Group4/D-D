@@ -14,6 +14,10 @@ define(['./Tool'], function (Tool) {
         });
     }
 
+    function highlightComponents(cellView, color){
+        cellView.model.attr('path/fill', color);
+    }
+
     var componentClickStack = [];
 
     // These are the listeners that are called whenever
@@ -33,7 +37,7 @@ define(['./Tool'], function (Tool) {
         },
         onClick: function(cellView) {
             componentClickStack.push(cellView);
-            cellView.model.attr('path/fill', 'red');
+            highlightComponents(cellView, 'red');
 
             if (componentClickStack.length === 2) {
                 var element1 = componentClickStack.pop();
@@ -57,10 +61,10 @@ define(['./Tool'], function (Tool) {
             }
         },
         onMouseOver: function(cellView, evt){
-            cellView.model.attr('path/fill', '#555555');
+            highlightComponents(cellView, '#555555');
         },
         onMouseOut: function(cellView, evt){
-            cellView.model.attr('path/fill', '#333333');
+            highlightComponents(cellView, '#333333');
         }
 
     }, Tool);
