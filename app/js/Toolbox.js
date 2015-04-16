@@ -76,5 +76,13 @@ define(['text!../tmpl/tool.html', './tools/SelectionTool', './tools/LinkTool'], 
       getActiveTool().onPointerMove.apply(graph, arguments);
     });
 
+    paper.on('cell:mouseover', function(cellView) {
+      getActiveTool().onMouseOver.apply(graph, arguments);
+    });
+
+    paper.on('cell:cell:mouseout', function(cellView) {
+      getActiveTool().onMouseOut.apply(graph, arguments);
+    });
+
   }
 });
