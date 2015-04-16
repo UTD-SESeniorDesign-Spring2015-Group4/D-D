@@ -63,6 +63,9 @@ define(['./Tool'], function (Tool) {
         },
         onMouseOver: function(cellView, evt){
             cellView.model.attr('path/fill', 'red');
+        },
+        onMouseOut: function(cellView){
+          cellView.model.attr('path/fill', 'green');
         }
     }, Tool);
 });
