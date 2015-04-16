@@ -1,20 +1,14 @@
 define([
     'text!../tmpl/paletteComponent.html',
-    'components/ApplicationServer',
-    'components/Client',
-    'components/DatabaseServer',
-    'components/Loadbalancer',
-    'components/MiddlewareServer',
-    'components/Wan',
-    'components/WebfrontendServer'
-], function (tmplPaletteComponentStr, ApplicationServer, Client, DatabaseServer, Loadbalancer, MiddlewareServer, Wan, WebfrontendServer) {
+    'components/Components'
+], function (tmplPaletteComponentStr, Components) {
     'use strict';
 
     var paper, graph, $palette;
 
     var paletteComponentTemplate= _.template(tmplPaletteComponentStr);
 
-    var palette = [Client, Wan, Loadbalancer, WebfrontendServer, MiddlewareServer, ApplicationServer, DatabaseServer];
+    var palette = Components.all;
 
     function getComponentByType(type) {
         return _.find(palette, function(component) {

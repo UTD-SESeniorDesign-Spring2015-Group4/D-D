@@ -34,12 +34,6 @@ define(['./Tool'], function (Tool) {
         onClick: function(cellView) {
             componentClickStack.push(cellView);
 
-            // Highlight only the first element
-            if (componentClickStack.length === 1)
-            {
-
-            }
-
             if (componentClickStack.length === 2) {
                 var element1 = componentClickStack.pop();
                 var element2 = componentClickStack.pop();
