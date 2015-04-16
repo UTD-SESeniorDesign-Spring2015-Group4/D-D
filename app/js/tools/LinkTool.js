@@ -33,6 +33,7 @@ define(['./Tool'], function (Tool) {
         },
         onClick: function(cellView) {
             componentClickStack.push(cellView);
+            cellView.model.attr('path/fill', 'red');
 
             if (componentClickStack.length === 2) {
                 var element1 = componentClickStack.pop();
@@ -56,10 +57,11 @@ define(['./Tool'], function (Tool) {
             }
         },
         onMouseOver: function(cellView, evt){
-            cellView.model.attr('path/fill', 'red');
+            cellView.model.attr('path/fill', '#555555');
         },
-        onMouseOut: function(cellView){
-          cellView.model.attr('path/fill', 'green');
+        onMouseOut: function(cellView, evt){
+            cellView.model.attr('path/fill', '#333333');
         }
+
     }, Tool);
 });
