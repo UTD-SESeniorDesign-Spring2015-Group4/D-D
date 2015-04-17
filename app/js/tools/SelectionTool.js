@@ -48,6 +48,12 @@ define(
             $modal.find('#btnCancel').click(function () {
               modal.destroy();
             });
+            // Make form submission act as clicking the save button
+            // instead of refreshing the app.
+            $modal.find('form').submit(function (e) {
+              e.preventDefault();
+              $modal.find('#btnSave').click();
+            });
           }).show();
         },
         onActivated: function(){
