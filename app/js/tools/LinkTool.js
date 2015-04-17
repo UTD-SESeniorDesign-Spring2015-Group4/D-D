@@ -14,10 +14,6 @@ define(['./Tool'], function (Tool) {
         });
     }
 
-    function highlightComponents(cellView, color){
-        cellView.model.attr('path/fill', color);
-    }
-
     var componentClickStack = [];
 
     // These are the listeners that are called whenever
@@ -37,11 +33,12 @@ define(['./Tool'], function (Tool) {
         },
         onClick: function(cellView) {
             componentClickStack.push(cellView);
-            highlightComponents(cellView, 'red');
 
             if (componentClickStack.length === 2) {
                 var element1 = componentClickStack.pop();
                 var element2 = componentClickStack.pop();
+
+                element2.model.attr('path/fill', '#333333');
 
                 // We don't want to link an element to itself.
                 if (element1 === element2)
@@ -58,14 +55,12 @@ define(['./Tool'], function (Tool) {
                         name: 'manhattan'
                     }
                 }));
+            }else {
+                // Only one element has been selected.
+                var element = componentClickStack[0];
+                element.model.attr('path/fill', 'red');
             }
-        },
-        onMouseOver: function(cellView, evt){
-            highlightComponents(cellView, '#555555');
-        },
-        onMouseOut: function(cellView, evt){
-            highlightComponents(cellView, '#333333');
-        }
 
+        }
     }, Tool);
 });
