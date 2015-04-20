@@ -30,6 +30,10 @@ define(
                   text: 'Save',
                   className: 'pure-button pure-button-primary'
                 },
+                btnDelete: {
+                  text: 'Delete Component',
+                  className: 'pure-button pure-button-danger'
+                },
                 btnCancel: {
                   text: 'Cancel',
                   className: 'pure-button'
@@ -40,11 +44,21 @@ define(
             overlayClose: false
           }).afterCreate(function (modal) {
             var $modal = $(modal.modalElem());
+
+            // Save button.
             $modal.find('#btnSave').click(function () {
               modal.destroy();
               var componentNameInputValue = $modal.find('#component-name-input').val();
               componentClicked.set('name', componentNameInputValue);
             });
+
+            // Delete button.
+            $modal.find('#btnDelete').click(function () {
+              modal.destroy();
+              componentClicked.remove();
+            });
+
+            // Cancel button.
             $modal.find('#btnCancel').click(function () {
               modal.destroy();
             });
