@@ -60,7 +60,6 @@ define(['./Tool'], function (Tool) {
                 var element = componentClickStack[0];
                 element.model.attr('path/fill', 'red');
             }
-
         }
     }, Tool);
 });
