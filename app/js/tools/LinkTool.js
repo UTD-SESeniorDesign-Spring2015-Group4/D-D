@@ -38,6 +38,8 @@ define(['./Tool'], function (Tool) {
                 var element1 = componentClickStack.pop();
                 var element2 = componentClickStack.pop();
 
+                element2.model.attr('path/fill', '#333333');
+
                 // We don't want to link an element to itself.
                 if (element1 === element2)
                     return;
@@ -53,6 +55,10 @@ define(['./Tool'], function (Tool) {
                         name: 'manhattan'
                     }
                 }));
+            }else {
+                // Only one element has been selected.
+                var element = componentClickStack[0];
+                element.model.attr('path/fill', 'red');
             }
         }
     }, Tool);
