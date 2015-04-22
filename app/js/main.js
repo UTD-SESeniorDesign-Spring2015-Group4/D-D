@@ -13,7 +13,7 @@ requirejs.config({
 requirejs([
     'configGUI',
     'app',
-    'Toolbox',
+    'tools/Toolbox',
     'Palette'
 ], function(configGUI, App) {
     // Disable brower opening files when dragging onto the window

@@ -23,7 +23,7 @@ define(['./Tool'], function (Tool) {
     // onClick: when the canvas is clicked while this tool is active
     return _.defaults({
         name: 'link',
-        icon: 'img/link-tool.svg',
+        icon: '../img/link-tool.svg',
 
         onActivated: function() {
             freezeComponents(true);

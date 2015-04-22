@@ -4,7 +4,7 @@ define([
 ], function (tmplPaletteComponentStr, Components) {
     'use strict';
 
-    var paper, graph, $palette;
+    var paper, graph, $palette, paletteEnabled;
 
     var paletteComponentTemplate= _.template(tmplPaletteComponentStr);
 
@@ -40,9 +40,27 @@ define([
         });
 
         $('.component').on('dragstart', function (event) {
+            if (!paletteEnabled) {
+                event.preventDefault();
+                return false;
+            }
             var componentDragged = $(event.target).is('img') ? $(event.target) : $(event.target).children();
             event.originalEvent.dataTransfer.setData('component', componentDragged.data('component'));
         });
     }
+
+    function enablePalette(enable) {
+        paletteEnabled = enable;
+        if (enable) {
+            $palette.parent().removeClass('disabled');
+        }
+        else {
+            $palette.parent().addClass('disabled');
+        }
+    }
+
+    return {
+        enablePalette: enablePalette
+    };
 
 });

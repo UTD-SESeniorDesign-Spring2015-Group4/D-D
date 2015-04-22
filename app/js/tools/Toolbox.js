@@ -1,4 +1,4 @@
-define(['text!../tmpl/tool.html', './app', './tools/SelectionTool', './tools/LinkTool'], function (tmplToolStr, app, SelectionTool, LinkTool) {
+define(['text!../../tmpl/tool.html', './../app', './SelectionTool', './LinkTool'], function (tmplToolStr, app, SelectionTool, LinkTool) {
   'use strict';
 
   var paper, graph, $toolbox;
@@ -46,16 +46,24 @@ define(['text!../tmpl/tool.html', './app', './tools/SelectionTool', './tools/Lin
    */
   function setupTools() {
     tools.forEach(function(tool){
-      var toolHTML = toolTemplate(tool);
-      $toolbox.append(toolHTML);
+      // Asynchronously load the SVG file to use in the template
+      requirejs(['text!' + tool.icon], function(iconSVG){
+        tool.iconSVG = iconSVG;
+        var toolHTML = toolTemplate(tool);
+        $toolbox.append(toolHTML);
+        $('[data-tool='+tool.name+']').click(function(e){
+          pickTool(tool);
+        });
 
-      $('[data-tool='+tool.name+']').click(function(e){
-        pickTool(tool);
+        // Pick default tool
+        if (tool === SelectionTool) {
+          pickTool(tool);
+        }
       });
+
+
+
     });
-
-    pickTool(SelectionTool);
-
     paper.on('cell:pointerclick', function(cellView) {
       getActiveTool().onClick.apply(graph, arguments);
     });
