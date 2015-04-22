@@ -48,7 +48,7 @@ html, body {
     list-style: none;
 }
 
-#sidebar li img {
+#sidebar li img, #sidebar li svg {
     margin-top: 10px;
     width: 50%;
 }
@@ -72,8 +72,9 @@ html, body {
     cursor: pointer;
 }
 
-.toolbox li img.active {
-    border: 1px solid white;
+.toolbox li.active svg * {
+    fill: white;
+    stroke: white;
 }
 
 .palette li:hover {

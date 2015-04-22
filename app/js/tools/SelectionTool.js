@@ -16,7 +16,7 @@ define(
       // onClick: when the canvas is clicked while this tool is active
       return _.defaults({
         name: 'selection',
-        icon: 'img/mouse_tool.svg',
+        icon: '../img/mouse_tool.svg',
         onDoubleClick: function (cellView) {
           var componentClicked = cellView.model;
 
