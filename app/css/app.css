@@ -80,6 +80,10 @@ html, body {
     cursor: move;
 }
 
+.palette.disabled li:hover {
+    cursor: not-allowed;
+}
+
 /*Canvas*/
 #canvas {
     display: inline-block;

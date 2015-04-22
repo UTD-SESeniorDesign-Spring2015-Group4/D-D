@@ -2,9 +2,10 @@
 define(
     [
       './Tool',
-      'text!../../tmpl/editComponentDialog.html'
+      'text!../../tmpl/editComponentDialog.html',
+      '../Palette'
     ],
-    function (Tool, tmplEditComponent) {
+    function (Tool, tmplEditComponent, Palette) {
       'use strict';
       var editComponentTemplate = _.template(tmplEditComponent);
 
@@ -70,9 +71,13 @@ define(
             });
           }).show();
         },
-        onActivated: function(){
+        onActivated: function() {
             $('.link-tools').css( 'display', 'none');
             $('.marker-arrowheads').css( 'display', 'none');
+            Palette.enablePalette(true);
+        },
+        onDeactivated: function() {
+          Palette.enablePalette(false);
         },
         onPointerDown: function(cell) {
             console.log("pointer down");
