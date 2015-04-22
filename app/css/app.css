@@ -58,14 +58,14 @@ html, body {
     padding-top: 10px;
     font-size: .6em;
     font-family: texgyreheros-bold, sans-serif;
-    color: #C3C3C3;
+    color: #888888;
 }
 
 #sidebar hr {
     border: 0;
     height: 1px;
     margin: 5px;
-    background-color: #C3C3C3;
+    background-color: #888888;
 }
 
 .toolbox li img:hover {
