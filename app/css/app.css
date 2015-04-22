@@ -59,6 +59,7 @@ html, body {
     font-size: .6em;
     font-family: texgyreheros-bold, sans-serif;
     color: #888888;
+    -webkit-user-select: none;
 }
 
 #sidebar hr {
