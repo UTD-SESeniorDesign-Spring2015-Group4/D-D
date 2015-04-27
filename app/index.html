@@ -1,44 +1,55 @@
 <!DOCTYPE html>
 <html data-tool="select">
-	<head>
-		<title>D&D</title>
-		<link rel="stylesheet" href="vendor/joint/dist/joint.nojquerynobackbone.css">
-        <link rel="stylesheet" href="vendor/normalize.css/normalize.css">
-        <link rel="stylesheet" href="vendor/toastr/toastr.css">
-        <link rel="stylesheet" href="vendor/pure/buttons.css">
-        <link rel="stylesheet" href="css/app.css"/>
-		<script src="vendor/jquery/dist/jquery.js"></script>
-		<script src="vendor/lodash/lodash.js"></script>
-		<script src="vendor/backbone/backbone.js"></script>
-		<script src="vendor/joint/dist/joint.nojquerynobackbone.js"></script>
-		<script src="vendor/PicoModal/src/picoModal.js"></script>
-		<script src="vendor/toastr/toastr.js"></script>
+<head>
+    <title>D&D</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="vendor/joint/dist/joint.nojquerynobackbone.css">
+    <link rel="stylesheet" href="vendor/normalize.css/normalize.css">
+    <link rel="stylesheet" href="vendor/toastr/toastr.css">
+    <link rel="stylesheet" href="vendor/pure/buttons.css">
+    <link rel="stylesheet" href="css/app.css"/>
 
-	</head>
-	<body>
-        <!--Sidebar-->
-        <div id="sidebar">
-            <div class="toolbox">
-                <h3>TOOLS</h3>
-                <ul>
-                </ul>
-            </div>
-            <hr/>
-            <div class="palette">
-                <h3>PALETTE</h3>
-                <ul>
-                </ul>
-            </div>
-        </div>
+    <!-- Global Dependencies -->
+    <script src="vendor/jquery/dist/jquery.js"></script>
+    <script src="vendor/lodash/lodash.js"></script>
+    <script src="vendor/backbone/backbone.js"></script>
+    <script src="vendor/joint/dist/joint.nojquerynobackbone.js"></script>
+    <script src="vendor/PicoModal/src/picoModal.js"></script>
+    <script src="vendor/toastr/toastr.js"></script>
 
-        <!--Canvas-->
-        <div id="canvas" ondragover="event.preventDefault()">
+</head>
+<body>
+<!--Sidebar-->
+<div id="sidebar">
+    <!-- Toolbox -->
+    <div class="toolbox">
+        <h3>TOOLS</h3>
+        <ul>
+        </ul>
+    </div>
+    <hr/>
+    <!-- Palette -->
+    <div class="palette">
+        <h3>PALETTE</h3>
+        <ul>
+        </ul>
+    </div>
+</div>
 
-        </div>
+<!--Canvas-->
+<div id="canvas" ondragover="event.preventDefault()">
 
-        <input id="openFileDialog" type="file" style="display:none" accept=".dgrm"/>
-        <input id="saveFileDialog" type="file" style="display:none" accept=".dgrm" nwsaveas/>
-        <input id="exportFileDialog" type="file" style="display:none" accept=".manf" nwsaveas/>
-		<script src="js/init.js"></script>
-	</body>
+</div>
+
+<!-- Invisible file inputs used in configGUI.java to show file dialogs -->
+<input id="openFileDialog" type="file" style="display:none" accept=".dgrm"/>
+<input id="saveFileDialog" type="file" style="display:none" accept=".dgrm" nwsaveas/>
+<input id="exportFileDialog" type="file" style="display:none" accept=".manf" nwsaveas/>
+
+<!--
+Application initialization script.
+This will do pre-load configuration and then start RequireJS which will start the app.
+-->
+<script src="js/init.js"></script>
+</body>
 </html>
