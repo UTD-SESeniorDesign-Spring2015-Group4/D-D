@@ -31,6 +31,21 @@ define([], function () {
 		 * Called when a CellView on the canvas has been double-clicked and
 		 * this tool is selected.
 		 */
-		onDoubleClick: _.noop
+		onDoubleClick: _.noop,
+
+		/**
+		 * Called when the mouse is released.
+		 */
+		onPointerUp: _.noop,
+
+		/**
+		 * Called when the mouse is clicked.
+		 */
+		onPointerDown: _.noop,
+
+		/**
+		 * Called when the mouse is moved.
+		 */
+		onPointerMove: _.noop
 	};
 });
