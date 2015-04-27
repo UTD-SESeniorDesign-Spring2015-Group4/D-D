@@ -1,6 +1,6 @@
 /**
- * Represents a component in a network topology. This should be subclassed
- * by more specific definitions of components.
+ * Represents a component in a network topology.
+ * This should be subclassed by more specific definitions of components.
  */
 define([], function () {
 	return joint.shapes.basic.Generic.extend({
