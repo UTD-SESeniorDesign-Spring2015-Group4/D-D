@@ -1,22 +1,51 @@
-// This is the base class for all tools. Don't actually use an instance of this, extend it and use that.
+/**
+ * Logic for Tools.
+ * This should be subclassed by more specific definitions of tools.
+ */
 define([], function () {
-    'use strict';
+	'use strict';
 
-    // These are the listeners that are called whenever
-    // the tool is used
-    // onActivated: when the tool is chosen from the toolbox
-    // onDeactivated: when the tool is deselected in the toolbox (another tool chosen)
-    // onClick: when the canvas is clicked while this tool is active
-    //
-    // Subclasses also need to specify a name and icon for the toolbox to use
-    return {
-        name: null,
-        icon: null,
-        onActivated: _.noop,
-        onDeactivated: _.noop,
-        onClick: _.noop,
-        onPointerUp: _.noop,
-        onPointerDown: _.noop,
-        onPointerMove: _.noop
-    };
+	// Default fields and functions that should be overwritten by subclasses.
+	return {
+		name: null,
+		icon: null,
+
+		/**
+		 * Called when this tool is selected in the toolbox.
+		 */
+		onActivated: _.noop,
+
+		/**
+		 * Called when this tool is deselected in the toolbox or another tool
+		 * has been selected.
+		 */
+		onDeactivated: _.noop,
+
+		/**
+		 * Called when a CellView on the canvas has been clicked and this
+		 * tool is selected.
+		 */
+		onClick: _.noop,
+
+		/**
+		 * Called when a CellView on the canvas has been double-clicked and
+		 * this tool is selected.
+		 */
+		onDoubleClick: _.noop,
+
+		/**
+		 * Called when the mouse is released.
+		 */
+		onPointerUp: _.noop,
+
+		/**
+		 * Called when the mouse is clicked.
+		 */
+		onPointerDown: _.noop,
+
+		/**
+		 * Called when the mouse is moved.
+		 */
+		onPointerMove: _.noop
+	};
 });
