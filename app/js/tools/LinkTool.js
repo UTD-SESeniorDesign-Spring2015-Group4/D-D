@@ -55,6 +55,12 @@ define(['./Tool'], function (Tool) {
 		 *  The CellView that was clicked.
 		 */
 		onClick: function (cellView) {
+			// Ensure we are not trying to link to a link.
+			if (!(cellView.model.get('type') === "link")) {
+				return;
+			}
+
+			// Push the cellView onto the "clicked" stack.
 			componentClickStack.push(cellView);
 
 			// If there are two components on the componentClickStack, those two
