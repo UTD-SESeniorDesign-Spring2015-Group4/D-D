@@ -14,12 +14,12 @@ define([
 			// initialize() function.
 			template: _.template(
 				[
-					'<text class="type" font-size="15" x="0" y="0"><%= type %></text>',
+					'<text class="type" text-anchor="middle" font-size="15" x="33" y="0"><%= type %></text>',
 					'<g class="scalable">',
-					'<path id="laptop-icon" fill="#333333" d="M783.3-0.1H212v384.7h571.1V-0.1H783.3z M734.7,336.1H260.5V48.4h474.1v287.7H734.7zM783.3,411.7H212l-84.4,148.4h740.7L783.3,411.7z M429.2,528.6l14.4-42.2h108.7l14.4,42.2H429.2z"/>',
-					'<rect x="127.6" y="-0.1" fill="rgba(0, 0, 0, 0)" width="740.7" height="560.2"/>', // Invisible rectangle to allow the component to be clicked where it should be blank.
+					'<path transform="translate(0, 50)" id="laptop-icon" fill="#333333" d="M783.3-0.1H212v384.7h571.1V-0.1H783.3z M734.7,336.1H260.5V48.4h474.1v287.7H734.7zM783.3,411.7H212l-84.4,148.4h740.7L783.3,411.7z M429.2,528.6l14.4-42.2h108.7l14.4,42.2H429.2z"/>',
+					'<rect transform="translate(0, 50)" x="127.6" y="-0.1" fill="rgba(0, 0, 0, 0)" width="740.7" height="560.2"/>', // Invisible rectangle to allow the component to be clicked where it should be blank.
 					'</g>',
-					'<text class="name" font-size="15" x="0" y="75"><%= name %></text>'
+					'<text class="name" text-anchor="middle" font-size="15" x="33" y="60"><%= name %></text>'
 				].join('')
 			),
 
