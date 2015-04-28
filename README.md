@@ -32,3 +32,26 @@ Currently we only support building a Windows 32-bit installer, and you can only 
 ### Developer Shortcuts
 
 There are a couple of handy secret keyboard shortcuts. `Ctrl+Alt+I` (`Cmd+Alt+I` on Mac) opens the Developer Tools. `Ctrl+Shift+R` (`Cmd+Shift+R`) will reload the application.
+
+### .manf File Format
+.manf files are JSON encoded data files with the purpose of sending network topology data from the Diagram Editor to the Configuration Tool. They are in the following format:
+
+```
+{
+    "components": [
+        {
+            "id": "<A unique ID>",
+            "name": "<The name of the component, empty if no name is assigned>",
+            "type": "<The type of the component>",
+            "connections": ["<ID of connected component>", "<ID of another connected component>"]
+        },
+        {
+            "id": "<A unique ID>",
+            "name": "<The name of the component, empty if no name is assigned>",
+            "type": "<The type of the component>",
+            "connections": ["<ID of connected component>", "<ID of another connected component>"]
+        },
+        ...
+    ]
+}
+```
