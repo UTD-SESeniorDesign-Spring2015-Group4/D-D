@@ -1,97 +1,115 @@
 define([
-  'components/Components',
-  './configGUI'
+	'components/Components',
+	'./configGUI'
 ], function (Components, configGUI) {
-  "use strict";
+	"use strict";
 
-  var $sidebar;
-  var $canvas;
+	// Cached references to commonly accessed selectors.
+	var $sidebar;
+	var $canvas;
 
-  var graph;
-  var paper;
+	var graph;
+	var paper;
 
-  $(document).ready(function() {
-    setUpCommonQueries();
-    setUpPaper();
-    setUpDragAndDrop();
-    // Open a diagram file if specified by command line arguments
-    // This also happens if you drag a file onto the executable
-    if(nwgui.App.argv.length !== 0)
-      configGUI.open(nwgui.App.argv[0]);
-  });
+	/**
+	 * Called when the page has finished loading.
+	 */
+	$(document).ready(function () {
+		setUpCommonQueries();
+		setUpPaper();
+		setUpDragAndDrop();
 
-  function setUpCommonQueries() {
-    $sidebar = $("#sidebar");
-    $canvas = $("#canvas");
-  }
+		// Open a diagram file if specified by command line arguments
+		// This also happens if you drag a file onto the executable
+		if (nwgui.App.argv.length !== 0) {
+			configGUI.open(nwgui.App.argv[0]);
+		}
+	});
 
-  /**
-   * Set up the paper / graph.
-   */
-  function setUpPaper() {
-    graph = new joint.dia.Graph();
-    paper = new joint.dia.Paper({
-      el: $canvas,
-      width: "100%",
-      height: "100%",
-      gridSize: 10,
-      model: graph
-    });
-    window.paper = paper;
+	/**
+	 * Cache references to commonly accessed selectors.
+	 */
+	function setUpCommonQueries() {
+		$sidebar = $("#sidebar");
+		$canvas = $("#canvas");
+	}
 
-    $(window).resize(function(){
-      var $window = $(window);
-      paper.setDimensions($window.width(), $window.height());
-    });
+	/**
+	 * Set up the paper / graph.
+	 */
+	function setUpPaper() {
+		graph = new joint.dia.Graph();
+		paper = new joint.dia.Paper({
+			el: $canvas,
+			width: "100%",
+			height: "100%",
+			gridSize: 10,
+			model: graph
+		});
+		window.paper = paper;
 
-    // Expose the graph so it can be accessed by the fileIO code.
-    window.graph = graph;
-    graph.on('change add remove', function(e){
-      graph.set('unsavedChanges', true, {silent: true});
-      if(!_.endsWith(document.title, '*'))
-        document.title += '*';
-    }, graph);
-  }
+		$(window).resize(function () {
+			var $window = $(window);
+			paper.setDimensions($window.width(), $window.height());
+		});
 
-  function setUpDragAndDrop() {
-    $canvas.on('drop', dropOnPaper);
-  }
+		// Expose the graph so it can be accessed by the fileIO code.
+		window.graph = graph;
+		graph.on('change add remove', function (e) {
+			graph.set('unsavedChanges', true, {silent: true});
+			if (!_.endsWith(document.title, '*'))
+				document.title += '*';
+		}, graph);
+	}
 
-  // drop handler ////////////////////////////////////////////////////
-  function dropOnPaper(event) {
-    var scaleFactor = 2;
-    var component;
-    var type = event.originalEvent.dataTransfer.getData('component');
-    var componentDragged = $('[data-component=' + type + ']');
+	/**
+	 * Enable dropping of components on the paper.
+	 */
+	function setUpDragAndDrop() {
+		$canvas.on('drop', dropOnPaper);
+	}
 
-    // Set the size for the new component.
-    var size = {
-      width: componentDragged.width() * scaleFactor,
-      height: componentDragged.height() * scaleFactor
-    };
+	/**
+	 * Drop handler for dropping of components on the paper.
+	 *
+	 * @param event
+	 *  The drop event.
+	 */
+	function dropOnPaper(event) {
+		var scaleFactor = 2;
+		var component;
+		var type = event.originalEvent.dataTransfer.getData('component');
+		var componentDragged = $('[data-component=' + type + ']');
 
-    // Get the offset of the canvas from the window.
-    var offset = $canvas.offset();
+		// Set the size for the new component.
+		var size = {
+			width: componentDragged.width() * scaleFactor,
+			height: componentDragged.height() * scaleFactor
+		};
 
-    // Edit the offset to center the drop point with the icon being dragged.
-    offset.left += (componentDragged.width() / 2);
-    offset.top -= (componentDragged.height() / 2);
+		// Get the offset of the canvas from the window.
+		var offset = $canvas.offset();
 
-    var position = {
-      x: event.originalEvent.clientX - offset.left,
-      y: event.originalEvent.clientY + offset.top
-    };
+		// Edit the offset to center the drop point with the icon being dragged.
+		offset.left += (componentDragged.width() / 2);
+		offset.top -= (componentDragged.height() / 2);
 
-    var SomeSubclassOfComponent = Components.typeComponentMap[type];
-    component = new SomeSubclassOfComponent({
-      position: position,
-      size: size
-    });
+		var position = {
+			x: event.originalEvent.clientX - offset.left,
+			y: event.originalEvent.clientY + offset.top
+		};
 
-    if (component !== undefined) {
-      graph.addCell(component);
-    } else {
-      Console.log("You have dragged a component of unknown type onto the canvas.");
-    }
-  }
+		// Create a component of the correct type.
+		var SomeSubclassOfComponent = Components.typeComponentMap[type];
+		component = new SomeSubclassOfComponent({
+			position: position,
+			size: size
+		});
+
+		if (component !== undefined) {
+			graph.addCell(component);
+		} else {
+			Console.log("You have dragged a component of unknown type onto the canvas.");
+		}
+	}
 });
