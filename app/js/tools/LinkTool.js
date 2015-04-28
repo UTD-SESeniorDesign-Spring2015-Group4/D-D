@@ -56,7 +56,7 @@ define(['./Tool'], function (Tool) {
 		 */
 		onClick: function (cellView) {
 			// Ensure we are not trying to link to a link.
-			if (!(cellView.model.get('type') === "link")) {
+			if (cellView.model.get('type') === "link") {
 				return;
 			}
 
