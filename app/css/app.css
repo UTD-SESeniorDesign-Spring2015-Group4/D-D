@@ -111,3 +111,9 @@ html, body {
 .unsaved-changes-dialog .title {
     margin-bottom: 0;
 }
+
+/* Disable link heads from being used. We don't want to be able to move a link
+once it has been created */
+.marker-arrowheads {
+    display: none;
+}

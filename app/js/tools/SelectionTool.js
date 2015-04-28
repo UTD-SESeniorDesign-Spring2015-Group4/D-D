@@ -22,10 +22,6 @@ define(
 			 * Called when this tool is selected in the toolbox.
 			 */
 			onActivated: function () {
-				// Disable links from being edited.
-				$('.link-tools').css('display', 'none');
-				$('.marker-arrowheads').css('display', 'none');
-
 				// Allow components to be dragged from the palette onto the
 				// canvas.
 				Palette.enablePalette(true);
