@@ -26,7 +26,7 @@ define(['./Tool'], function (Tool) {
 
 			// We want to freeze everything but links. Links cannot be moved in
 			// any scenario, but they still need to be deletable.
-			if (!(cell.get('type') === "link")) {
+			if (cell.get('type') !== "link") {
 				window.paper.findViewByModel(cell).options.interactive = !freeze;
 			}
 		});
